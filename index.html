@@ -16,6 +16,20 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   margin: auto;
 }
 
+/* ✅ HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 999;
+  text-align: center;
+  padding: 12px;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+/* PRODUCT CARD */
 .herb-card {
   margin-bottom: 15px;
   padding: 10px;
@@ -49,16 +63,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 <body>
 
-<!-- HEADER -->
-<div class="w3-top">
-  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
-    <div class="w3-center w3-padding-16">🌿 Traditional Herb Store</div>
-  </div>
+<!-- ✅ HEADER RESTORED -->
+<div class="header">
+  🌿 Traditional Herb Store
 </div>
 
 <div id="wrapper">
 
-  <div class="w3-main w3-content w3-padding" style="margin-top:100px;">
+  <div class="w3-main w3-content w3-padding" style="margin-top:20px;">
 
     <!-- PRODUCTS -->
     <div class="w3-row-padding w3-padding-16 w3-center" id="herbs"></div>
@@ -70,6 +82,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <h2>🛒 Your Cart</h2>
       <div id="cart">Your cart is empty</div>
       <h3 id="total"></h3>
+
+      <hr>
+
+      <!-- CUSTOMER DETAILS -->
+      <input id="customerName" class="w3-input w3-border" placeholder="Full Name (required)">
+
+      <input id="customerPhone" class="w3-input w3-border" placeholder="Phone Number (required)" style="margin-top:5px;">
+
+      <select id="deliveryOption" class="w3-select w3-border" style="margin-top:5px;" onchange="toggleAddress()">
+        <option value="pickup">Pickup</option>
+        <option value="delivery">Delivery</option>
+      </select>
+
+      <textarea id="customerAddress" class="w3-input w3-border"
+        placeholder="Delivery Address (required for delivery)"
+        style="margin-top:5px; display:none;"></textarea>
+
+      <br>
 
       <button onclick="sendToWhatsApp()" class="w3-button w3-green w3-round">
         Order via WhatsApp
@@ -84,12 +114,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 <!-- ABOUT -->
 <div class="w3-container w3-padding-32 w3-center">
+
   <h3>About Our Herbs</h3>
   <p style="max-width:800px; margin:auto;">
     Natural, traditionally sourced herbs for wellness and lifestyle support.
   </p>
 
-  <!-- ADDRESS -->
   <h4 style="margin-top:25px;">📍 Our Location</h4>
   <p style="max-width:800px; margin:auto;">
     The Markade Building<br>
@@ -97,42 +127,33 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     Johannesburg Central
   </p>
 
-  <!-- DISCLAIMER -->
   <h4 style="margin-top:25px;">Disclaimer</h4>
   <p style="max-width:800px; margin:auto; font-size:14px; color:#555;">
-    Results may vary from person to person. These products are not intended to diagnose, treat, cure, or prevent any disease.  
-    If you are pregnant, breastfeeding, have a medical condition, or are taking medication, please consult a qualified healthcare professional before use.  
-    Discontinue use if any adverse reaction occurs.
+    Results may vary from person to person. These products are not intended to diagnose, treat, cure, or prevent any disease.
   </p>
+
 </div>
 
 <script>
 
+// ---------------- ORDER NUMBER ----------------
+function generateOrderNumber() {
+  return "ORD-" + Math.floor(100000 + Math.random() * 900000);
+}
+
 // ---------------- PRODUCTS ----------------
 const products = [
-  { id: 1, 
-    name: "SlimAura Capsules", 
-    price: 100, 
-    bulkPrice: 80,
-    bulkThreshold: 3,
-    description: "• Support appetite control\n• Boost metabolism\n• Helps with weight management\n• Natural & safe ingredients", 
+  { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3,
+    description: "• Appetite control\n• Boost metabolism\n• Weight management",
     image: "./static/one.png"
   },
-  { 
-    id: 2, 
-    name: "SlimAura Wellness Tea + Capsules", 
-    price: 250, 
-    description: "• Weight management\n• Boost metabolism\n• Reduce bloating\n• Supports Appetite control", 
-    image: "./static/two.png" 
+  { id: 2, name: "SlimAura Combo", price: 250,
+    description: "• Weight management\n• Reduce bloating\n• Natural support",
+    image: "./static/two.png"
   },
-  { 
-    id: 3, 
-    name: "Flat Tummy Capsules", 
-    price: 100, 
-    bulkPrice: 80,
-    bulkThreshold: 3,
-    description: "• Men & women\n• Reduce fat\n• Daily use", 
-    image: "./static/three.png" 
+  { id: 3, name: "Flat Tummy Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3,
+    description: "• Fat reduction\n• Men & women\n• Daily use",
+    image: "./static/three.png"
   }
 ];
 
@@ -154,6 +175,13 @@ function decreaseQty(id) {
 function removeItem(id) {
   delete cart[id];
   updateCart();
+}
+
+// ---------------- ADDRESS TOGGLE ----------------
+function toggleAddress() {
+  let option = document.getElementById("deliveryOption").value;
+  document.getElementById("customerAddress").style.display =
+    option === "delivery" ? "block" : "none";
 }
 
 // ---------------- LOAD PRODUCTS ----------------
@@ -199,7 +227,7 @@ function loadProducts() {
   document.getElementById("herbs").innerHTML = html;
 }
 
-// ---------------- UPDATE CART ----------------
+// ---------------- CART ----------------
 function updateCart() {
   let html = "";
   let total = 0;
@@ -214,20 +242,19 @@ function updateCart() {
     let product = products.find(p => p.id === Number(id));
     let qty = cart[id];
 
-    let priceToUse = product.price;
+    let price = product.price;
     if (product.bulkPrice && qty >= product.bulkThreshold) {
-      priceToUse = product.bulkPrice;
+      price = product.bulkPrice;
     }
 
-    let itemTotal = priceToUse * qty;
+    let itemTotal = price * qty;
     total += itemTotal;
 
     html += `
       <div class="cart-item">
-
         <div>
           ${product.name}<br>
-          <small>R${priceToUse} x ${qty}</small>
+          <small>R${price} x ${qty}</small>
         </div>
 
         <div>
@@ -235,7 +262,6 @@ function updateCart() {
           <button onclick="addToCart(${id})" class="w3-button w3-small">+</button>
           <button onclick="removeItem(${id})" class="w3-button w3-small w3-red">x</button>
         </div>
-
       </div>
     `;
   }
@@ -248,28 +274,57 @@ function updateCart() {
 function sendToWhatsApp() {
   if (Object.keys(cart).length === 0) return;
 
-  let message = "Hello, I would like to order:%0A%0A";
+  let orderId = generateOrderNumber();
+
+  let name = document.getElementById("customerName").value;
+  let phone = document.getElementById("customerPhone").value;
+  let method = document.getElementById("deliveryOption").value;
+  let address = document.getElementById("customerAddress").value;
+
+  if (!name || !phone) {
+    alert("Name and phone are required");
+    return;
+  }
+
+  if (!/^\d{10,15}$/.test(phone)) {
+    alert("Enter valid phone number");
+    return;
+  }
+
+  if (method === "delivery" && !address) {
+    alert("Delivery address required");
+    return;
+  }
+
+  let message = `🧾 Order ID: ${orderId}%0A%0A`;
   let total = 0;
 
   for (let id in cart) {
     let product = products.find(p => p.id === Number(id));
     let qty = cart[id];
 
-    let priceToUse = product.price;
+    let price = product.price;
     if (product.bulkPrice && qty >= product.bulkThreshold) {
-      priceToUse = product.bulkPrice;
+      price = product.bulkPrice;
     }
 
-    let itemTotal = priceToUse * qty;
+    let itemTotal = price * qty;
     total += itemTotal;
 
     message += `${product.name} x${qty} - R${itemTotal}%0A`;
   }
 
-  message += `%0ASubtotal: R${total}`;
-  const phone = "27633408901";
+  message += `%0A💰 Total: R${total}%0A`;
+  message += `👤 Name: ${name}%0A`;
+  message += `📞 Phone: ${phone}%0A`;
+  message += `🚚 Method: ${method}%0A`;
 
-  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  if (method === "delivery") {
+    message += `📍 Address: ${address}%0A`;
+  }
+
+  const number = "27633408901";
+  window.open(`https://wa.me/${number}?text=${message}`, "_blank");
 }
 
 // INIT
