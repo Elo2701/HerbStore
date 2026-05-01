@@ -314,16 +314,16 @@ function sendToWhatsApp() {
     message += `${product.name} x${qty} - R${itemTotal}%0A`;
   }
 
-  message += `%0A💰 Total: R${total}%0A`;
-  message += `👤 Name: ${name}%0A`;
-  message += `📞 Phone: ${phone}%0A`;
-  message += `🚚 Method: ${method}%0A`;
+  message += `%0A Total: R${total}%0A`;
+  message += ` Name: ${name}%0A`;
+  message += ` Phone: ${phone}%0A`;
+  message += ` Method: ${method}%0A`;
 
   if (method === "delivery") {
-    message += `📍 Address: ${address}%0A`;
+    message += ` Address: ${address}%0A`;
   }
 
-  const number = "27633408901";
+  const number = "27617218089";
   window.open(`https://wa.me/${number}?text=${message}`, "_blank");
 }
 
