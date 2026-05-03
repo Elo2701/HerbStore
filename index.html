@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 <title>Grow Roots</title>
@@ -29,18 +29,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   border-bottom: 1px solid #ddd;
 }
 
-.header img {
-  height: 120px;
-}
+.header img { height: 120px; }
 
-.herb-card {
-  margin-bottom: 15px;
-  padding: 10px;
-}
+.herb-card { margin-bottom: 15px; padding: 10px; }
 
 .product-img {
   width: 100%;
-  height: auto;
   max-height: 220px;
   object-fit: contain;
   background: #f5f5f5;
@@ -66,7 +60,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <img src="./static/logo.png">
   <div>
@@ -76,15 +69,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </div>
 
 <div id="wrapper">
-
   <div class="w3-main w3-content w3-padding">
 
-    <!-- PRODUCTS -->
     <div class="w3-row-padding w3-padding-16 w3-center" id="herbs"></div>
 
     <hr>
 
-    <!-- CART -->
     <div class="w3-container w3-card w3-padding">
 
       <h2>Your Cart</h2>
@@ -113,11 +103,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       </button>
 
     </div>
-
   </div>
 </div>
 
-<!-- PAYFAST FORM -->
+<!-- PAYFAST -->
 <form id="payfastForm" method="post" action="https://www.payfast.co.za/eng/process">
 
   <input type="hidden" name="merchant_id" value="YOUR_MERCHANT_ID">
@@ -138,6 +127,9 @@ function generateOrderNumber() {
   return "ORD-" + Math.floor(100000 + Math.random() * 900000);
 }
 
+let selectedOptions = {};
+let cart = {};
+
 const products = [
   { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3,
     description: "Appetite control\nBoost metabolism\nWeight management",
@@ -151,6 +143,7 @@ const products = [
     description: "Fat reduction\nMen & women\nDaily use",
     image: "./static/three.png"
   },
+
   {  
   id: 4, 
   name: "Dr Jemaier Super-Whitening AHA Ginseng Serum + Lansyade AHA Lotion Combo", 
@@ -188,14 +181,60 @@ image: "./static/five.png"
 },
 {
   id: 9, 
-  name: "Lansyade Natural Skincare AHA White Face Serum",                          
-  price: 120,
-  description: "• Achieve Facial Whitening\n• Clears Stubborn Dark Spots\n• Brightens and Evens Skin Tone",
+  name: "Iyamo Essence",                          
+  price: 100,
+  description: "•  Say goodbye to piles \n• No more itching & discomfort \n•  Stay fresh & clean all day \n•  Intimate care on another level ",
   image: "./static/nine.png"
-}
+},
+{
+  id: 10, 
+  name: "Yoni Detox Pearls",                          
+  price: 40, bulkPrice: 30, bulkThreshold: 3,
+  description: "• 1 Pck(3 Pearls)\n• Reduces Stretch Marks\n• Fades Dark Spots",
+  image: "./static/ten.png"
+},
+
+  { 
+    id: 11, 
+    name: "Premium MORINGA Powder & MORINGA Capsules", 
+    options: [
+      { size: "100g", price: 50 },
+      { size: "1L", price: 120 },
+      { size: "2L", price: 200 },
+      { size: "1KG", price: 150 }
+    ],
+    description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients\n• Supports Overall Wellness", 
+    image: "./static/eleven.png" 
+  },
+
+  {
+    id: 12, 
+    name: "Patience's Beauty Premium Guava Powder", 
+    description: "• High Vitamin C\n• Digestive Health\n• Antioxidant Rich\n• Weight Management", 
+    image: "./static/twelve.png",
+    variations: [
+      { size: "100g", price: 50, bulkPrice: 30, bulkThreshold: 10 },
+      { size: "1Lt", price: 100, bulkPrice: 100, bulkThreshold: 1 },
+      { size: "2Lt", price: 120, bulkPrice: 120, bulkThreshold: 1 },
+      { size: "5Lt", price: 500, bulkPrice: 500, bulkThreshold: 1 }
+    ]
+  },
+
+  { 
+    id: 13, 
+    name: "Patience's Beauty Premium Cinnamon Sticks", 
+    description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", 
+    image: "./static/thirteen.png",
+    variations: [
+      { size: "100g (Split)", price: 50, bulkPrice: 30, bulkThreshold: 10 },
+      { size: "500g (Split)", price: 50, bulkPrice: 30, bulkThreshold: 5 },
+      { size: "500g (Premium)", price: 200, bulkPrice: 200, bulkThreshold: 1 },
+      { size: "1kg", price: 350, bulkPrice: 350, bulkThreshold: 1 }
+    ]
+  }
 ];
 
-let cart = {};
+// ---------------- CART LOGIC ----------------
 
 function addToCart(id) {
   cart[id] = (cart[id] || 0) + 1;
@@ -220,31 +259,68 @@ function toggleAddress() {
     ? "block" : "none";
 }
 
+// ---------------- PRICE HANDLER ----------------
+
+function getPrice(p, qty, optIndex = 0) {
+  if (p.options) return p.options[optIndex]?.price ?? 0;
+
+  if (p.variations) {
+    let v = p.variations[optIndex];
+    if (!v) return 0;
+
+    if (qty >= v.bulkThreshold) return v.bulkPrice;
+    return v.price;
+  }
+
+  return p.price ?? 0;
+}
+
+// ---------------- PRODUCTS ----------------
+
 function loadProducts() {
   let html = "";
 
   products.forEach(p => {
+
+    let dropdown = "";
+
+    if (p.options) {
+      dropdown = `<select onchange="selectedOptions[${p.id}] = this.value">
+        ${p.options.map((o,i)=>`
+          <option value="${i}">${o.size} - R${o.price}</option>
+        `).join("")}
+      </select>`;
+    }
+
+    if (p.variations) {
+      dropdown = `<select onchange="selectedOptions[${p.id}] = this.value">
+        ${p.variations.map((o,i)=>`
+          <option value="${i}">${o.size} - R${o.price}</option>
+        `).join("")}
+      </select>`;
+    }
+
     html += `
       <div class="w3-col l3 m6 s6">
         <div class="herb-card w3-card">
 
           <img src="${p.image}" class="product-img">
 
-          <div>
-            <b>${p.name}</b>
+          <b>${p.name}</b>
 
-            <div style="font-size:12px; white-space:pre-line;">
-              ${p.description}
-            </div>
-
-            <div class="price">R${p.price}</div>
-
-            <button onclick="addToCart(${p.id})"
-              class="w3-button w3-green w3-small w3-round"
-              style="width:100%; margin-top:6px;">
-              Add
-            </button>
+          <div style="font-size:12px; white-space:pre-line;">
+            ${p.description}
           </div>
+
+          <div class="price">R${p.price ?? (p.options ? p.options[0].price : p.variations ? p.variations[0].price : 0)}</div>
+
+          ${dropdown}
+
+          <button onclick="addToCart(${p.id})"
+            class="w3-button w3-green w3-small w3-round"
+            style="width:100%; margin-top:6px;">
+            Add
+          </button>
 
         </div>
       </div>
@@ -253,6 +329,8 @@ function loadProducts() {
 
   document.getElementById("herbs").innerHTML = html;
 }
+
+// ---------------- CART ----------------
 
 function updateCart() {
   let html = "";
@@ -268,10 +346,8 @@ function updateCart() {
     let p = products.find(x => x.id == id);
     let qty = cart[id];
 
-    let price = p.price;
-    if (p.bulkPrice && qty >= p.bulkThreshold) {
-      price = p.bulkPrice;
-    }
+    let optIndex = selectedOptions[id] || 0;
+    let price = getPrice(p, qty, optIndex);
 
     total += price * qty;
 
@@ -292,28 +368,9 @@ function updateCart() {
   document.getElementById("total").innerText = "Total: R" + total;
 }
 
+// ---------------- PAY ----------------
+
 function payNow() {
-
-  if (Object.keys(cart).length === 0) {
-    alert("Cart empty");
-    return;
-  }
-
-  let name = document.getElementById("customerName").value;
-  let phone = document.getElementById("customerPhone").value;
-  let method = document.getElementById("deliveryOption").value;
-  let address = document.getElementById("customerAddress").value;
-
-  if (!name || !phone) {
-    alert("Fill name and phone");
-    return;
-  }
-
-  if (method === "delivery" && !address) {
-    alert("Enter address");
-    return;
-  }
-
   let orderId = generateOrderNumber();
   let total = 0;
 
@@ -321,26 +378,12 @@ function payNow() {
     let p = products.find(x => x.id == id);
     let qty = cart[id];
 
-    let price = p.price;
-    if (p.bulkPrice && qty >= p.bulkThreshold) {
-      price = p.bulkPrice;
-    }
-
-    total += price * qty;
+    let optIndex = selectedOptions[id] || 0;
+    total += getPrice(p, qty, optIndex) * qty;
   }
 
   document.getElementById("pf_amount").value = total.toFixed(2);
   document.getElementById("pf_order_id").value = orderId;
-
-  localStorage.setItem("order", JSON.stringify({
-    orderId,
-    name,
-    phone,
-    method,
-    address,
-    cart,
-    total
-  }));
 
   document.getElementById("payfastForm").submit();
 }
