@@ -21,11 +21,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   top: 0;
   background: white;
   z-index: 999;
-  text-align: center;
-  padding: 12px;
-  font-size: 22px;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
+}
+
+.header img {
+  height: 120px;
 }
 
 .herb-card {
@@ -61,19 +66,27 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  Traditional Herb Store
+  <img src="./static/logo.png">
+  <div>
+    <div><b>Grow Roots</b></div>
+    <div style="font-size:16px;">Natural Ingredients. Real Results.</div>
+  </div>
 </div>
 
 <div id="wrapper">
 
   <div class="w3-main w3-content w3-padding">
 
+    <!-- PRODUCTS -->
     <div class="w3-row-padding w3-padding-16 w3-center" id="herbs"></div>
 
     <hr>
 
+    <!-- CART -->
     <div class="w3-container w3-card w3-padding">
+
       <h2>Your Cart</h2>
 
       <div id="cart">Your cart is empty</div>
@@ -102,41 +115,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     </div>
 
   </div>
-
-</div>
-
-<hr>
-
-<div class="w3-container w3-padding-32 w3-center">
-
-  <h3>About Our Herbs</h3>
-  <p style="max-width:800px; margin:auto;">
-    Natural, traditionally sourced herbs for wellness and lifestyle support.
-  </p>
-
-  <h4 style="margin-top:25px;">Location</h4>
-  <p>
-    The Markade Building<br>
-    84 President Street<br>
-    Johannesburg Central
-  </p>
-
-  <h4 style="margin-top:25px;">Disclaimer</h4>
-  <p style="max-width:800px; margin:auto; font-size:14px; color:#555;">
-    Results may vary. Not intended to diagnose or treat any disease.
-  </p>
-
 </div>
 
 <!-- PAYFAST FORM -->
-<form id="payfastForm" method="post" action="https://sandbox.payfast.co.za/eng/process">
-  <input type="hidden" name="merchant_id" value="10000100">
-  <input type="hidden" name="merchant_key" value="46f0cd694581a">
+<form id="payfastForm" method="post" action="https://www.payfast.co.za/eng/process">
+
+  <input type="hidden" name="merchant_id" value="YOUR_MERCHANT_ID">
+  <input type="hidden" name="merchant_key" value="YOUR_MERCHANT_KEY">
+
   <input type="hidden" name="amount" id="pf_amount">
-  <input type="hidden" name="item_name" value="Herb Store Order">
+  <input type="hidden" name="item_name" value="Grow Roots Order">
   <input type="hidden" name="m_payment_id" id="pf_order_id">
+
   <input type="hidden" name="return_url" value="success.html">
   <input type="hidden" name="cancel_url" value="cancel.html">
+
 </form>
 
 <script>
@@ -181,7 +174,8 @@ function removeItem(id) {
 
 function toggleAddress() {
   document.getElementById("customerAddress").style.display =
-    document.getElementById("deliveryOption").value === "delivery" ? "block" : "none";
+    document.getElementById("deliveryOption").value === "delivery"
+    ? "block" : "none";
 }
 
 function loadProducts() {
@@ -195,7 +189,7 @@ function loadProducts() {
           <img src="${p.image}" class="product-img">
 
           <div>
-            <div style="font-weight:bold;">${p.name}</div>
+            <b>${p.name}</b>
 
             <div style="font-size:12px; white-space:pre-line;">
               ${p.description}
@@ -229,22 +223,19 @@ function updateCart() {
   }
 
   for (let id in cart) {
-    let product = products.find(p => p.id == id);
+    let p = products.find(x => x.id == id);
     let qty = cart[id];
 
-    let price = product.price;
-    if (product.bulkPrice && qty >= product.bulkThreshold) {
-      price = product.bulkPrice;
+    let price = p.price;
+    if (p.bulkPrice && qty >= p.bulkThreshold) {
+      price = p.bulkPrice;
     }
 
     total += price * qty;
 
     html += `
       <div class="cart-item">
-        <div>
-          ${product.name}<br>
-          R${price} x ${qty}
-        </div>
+        <div>${p.name}<br>R${price} x ${qty}</div>
 
         <div>
           <button onclick="decreaseQty(${id})">-</button>
@@ -285,12 +276,12 @@ function payNow() {
   let total = 0;
 
   for (let id in cart) {
-    let product = products.find(p => p.id == id);
+    let p = products.find(x => x.id == id);
     let qty = cart[id];
 
-    let price = product.price;
-    if (product.bulkPrice && qty >= product.bulkThreshold) {
-      price = product.bulkPrice;
+    let price = p.price;
+    if (p.bulkPrice && qty >= p.bulkThreshold) {
+      price = p.bulkPrice;
     }
 
     total += price * qty;
@@ -299,13 +290,14 @@ function payNow() {
   document.getElementById("pf_amount").value = total.toFixed(2);
   document.getElementById("pf_order_id").value = orderId;
 
-  localStorage.setItem("orderData", JSON.stringify({
+  localStorage.setItem("order", JSON.stringify({
     orderId,
     name,
     phone,
     method,
     address,
-    cart
+    cart,
+    total
   }));
 
   document.getElementById("payfastForm").submit();
