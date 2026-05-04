@@ -1,499 +1,819 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
-<title>Grow Roots</title>
+<title>Grow Roots – Natural Wellness</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
-
-#wrapper {
-  max-width: 1100px;
-  margin: auto;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.header {
+body {
+  font-family: "Karma", serif;
+  background: #ffffff;
+  color: #111111;
+  scroll-behavior: smooth;
+}
+
+/* ----- COLOR THEME: GREEN + GOLD + WHITE + BLACK ----- */
+:root {
+  --grow-green: #1e6b3b;
+  --grow-gold: #d4af37;
+  --grow-dark: #111111;
+  --grow-white: #ffffff;
+}
+
+/* STICKY NAVIGATION */
+.top-nav {
   position: sticky;
   top: 0;
-  background: white;
-  z-index: 999;
+  z-index: 1000;
+  background: var(--grow-white);
+  border-bottom: 2px solid var(--grow-gold);
+  padding: 12px 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.02);
 }
 
-.header img { height: 120px; }
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-.herb-card { margin-bottom: 15px; padding: 10px; }
+.logo-img {
+  height: 55px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logo-text-main {
+  font-weight: 700;
+  font-size: 1.45rem;
+  letter-spacing: -0.2px;
+  color: var(--grow-green);
+}
+
+.logo-text-sub {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--grow-gold);
+  letter-spacing: -0.1px;
+}
+
+/* desktop nav links */
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--grow-dark);
+  transition: 0.2s;
+  font-size: 1rem;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+  cursor: pointer;
+}
+
+.nav-links a:hover {
+  color: var(--grow-gold);
+  border-bottom-color: var(--grow-gold);
+}
+
+.cart-icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  position: relative;
+  color: var(--grow-green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.cart-count-badge {
+  background: var(--grow-gold);
+  color: var(--grow-dark);
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 40px;
+  padding: 2px 8px;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* hamburger menu (hidden on desktop) */
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: var(--grow-green);
+  cursor: pointer;
+}
+
+/* mobile dropdown menu */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 85px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top: 2px solid var(--grow-gold);
+  border-bottom: 2px solid var(--grow-gold);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  z-index: 999;
+  flex-direction: column;
+  padding: 16px 24px;
+  gap: 16px;
+}
+
+.mobile-menu a, .mobile-menu button {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: var(--grow-dark);
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 0;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.mobile-menu a:hover, .mobile-menu button:hover {
+  color: var(--grow-gold);
+}
+
+.mobile-menu .cart-mobile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* media queries */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+  .mobile-menu.open {
+    display: flex;
+  }
+  .top-nav {
+    padding: 12px 20px;
+  }
+  .logo-text-main {
+    font-size: 1.2rem;
+  }
+  .logo-text-sub {
+    font-size: 0.6rem;
+  }
+}
+
+/* main container */
+#wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+/* PRODUCT GRID: 4 columns desktop, 2 columns phones/tablets */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px 24px;
+  margin: 32px 0 48px;
+  scroll-margin-top: 100px;
+}
+
+/* tablet & phone: 2 columns */
+@media (max-width: 992px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 540px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* product card */
+.herb-card {
+  background: var(--grow-white);
+  border-radius: 28px;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 18px 16px 20px;
+  border: 1px solid #ece8e0;
+}
+
+.herb-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 28px rgba(0,0,0,0.08);
+  border-color: var(--grow-gold);
+}
 
 .product-img {
   width: 100%;
-  max-height: 220px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
-  background: #f5f5f5;
-  border-radius: 6px;
-  padding: 5px;
+  background: #fcf9f2;
+  border-radius: 24px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.herb-card b {
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--grow-green);
+}
+
+.description-text {
+  font-size: 12px;
+  color: #2c2c2c;
+  white-space: pre-line;
+  margin: 8px 0;
+  flex: 1;
 }
 
 .price {
-  font-size: 14px;
-  font-weight: bold;
-  color: #2e7d32;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--grow-gold);
+  margin: 10px 0 6px;
+}
+
+select {
+  font-size: 12px;
+  padding: 8px;
+  border-radius: 60px;
+  border: 1px solid #ddd8ce;
+  width: 100%;
+  margin: 5px 0 10px;
+  background: white;
+  font-weight: 500;
+}
+
+.add-btn {
+  background: var(--grow-green);
+  color: white;
+  border: none;
+  border-radius: 60px;
+  padding: 10px 0;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+  font-size: 0.85rem;
+}
+
+.add-btn:hover {
+  background: #0f5530;
+  transform: scale(0.97);
+}
+
+.added-feedback {
+  background: #d4af37 !important;
+  color: #111 !important;
+}
+
+/* ABOUT SECTION with contact details */
+.about-section {
+  background: #fef9ef;
+  border-radius: 48px;
+  padding: 40px 32px;
+  margin: 50px 0 20px;
+  text-align: center;
+  border: 1px solid var(--grow-gold);
+  scroll-margin-top: 100px;
+}
+
+.about-section h2 {
+  color: var(--grow-green);
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  max-width: 700px;
+  margin: 0 auto 20px auto;
+  line-height: 1.6;
+  color: #1f2a1b;
+}
+
+.contact-details {
+  background: white;
+  border-radius: 32px;
+  padding: 20px;
+  margin-top: 20px;
+  display: inline-block;
+  text-align: left;
+  border: 1px solid var(--grow-gold);
+}
+
+.contact-details p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+.contact-details i {
+  color: var(--grow-green);
+  width: 24px;
+  margin-right: 8px;
+}
+
+/* CART DRAWER */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1100;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.25s ease;
+}
+
+.cart-overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  background: white;
+  box-shadow: -6px 0 24px rgba(0,0,0,0.12);
+  z-index: 1101;
+  transition: right 0.3s;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 24px 20px;
+  border-left: 4px solid var(--grow-gold);
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--grow-gold);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.close-drawer {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: var(--grow-green);
+}
+
+.cart-items-list {
+  flex: 1;
+  max-height: 45vh;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .cart-item {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:6px 0;
-  font-size:14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 14px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee6db;
+  gap: 12px;
+}
+
+.cart-item-info {
+  flex: 2;
+  font-size: 0.85rem;
+}
+
+.cart-item-actions button {
+  background: #f0ede8;
+  border: none;
+  border-radius: 30px;
+  padding: 5px 12px;
+  margin: 0 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.drawer-total {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--grow-green);
+  margin: 5px 0;
+}
+
+.checkout-field {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px 16px;
+  border-radius: 60px;
+  border: 1px solid #ccc7bc;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.pay-btn {
+  background: var(--grow-green);
+  color: white;
+  border: none;
+  border-radius: 60px;
+  padding: 14px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.pay-btn:hover {
+  background: #0f5530;
+}
+
+/* Bank details modal (inside drawer) */
+.bank-details {
+  background: #fef9ef;
+  padding: 16px;
+  border-radius: 24px;
+  margin-top: 16px;
+  border-left: 4px solid var(--grow-gold);
+  font-size: 0.85rem;
+}
+
+.bank-details p {
+  margin: 8px 0;
+}
+
+.bank-details strong {
+  color: var(--grow-green);
+}
+
+.toast-notify {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e3a2f;
+  color: var(--grow-gold);
+  padding: 10px 24px;
+  border-radius: 40px;
+  z-index: 1200;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: 0.2s;
+  pointer-events: none;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.toast-notify.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
 }
 </style>
 </head>
-
 <body>
 
-<div class="header">
-  <img src="./static/logo.png">
-  <div>
-    <div><b>Grow Roots</b></div>
-    <div style="font-size:16px;">Natural Ingredients. Real Results.</div>
+<nav class="top-nav">
+  <div class="logo-area">
+    <img src="./static/logo.png" alt="Grow Roots" class="logo-img" onerror="this.src='https://via.placeholder.com/60?text=GR'">
+    <div class="logo-text-wrapper">
+      <div class="logo-text-main">Grow Roots</div>
+      <div class="logo-text-sub">Natural Ingredients. Real Results.</div>
+    </div>
   </div>
+  
+  <div class="nav-links">
+    <a href="#products-grid">🍃 Products</a>
+    <a href="#about">📖 About</a>
+    <button class="cart-icon-btn" id="openCartBtnDesktop">
+      <i class="fas fa-shopping-bag"></i> 
+      <span id="cartCountBadgeDesktop" class="cart-count-badge">0</span>
+    </button>
+  </div>
+  
+  <button class="hamburger" id="hamburgerBtn">
+    <i class="fas fa-bars"></i>
+  </button>
+</nav>
+
+<div id="mobileMenu" class="mobile-menu">
+  <a href="#products-grid" id="mobileProductsLink">🍃 Products</a>
+  <a href="#about" id="mobileAboutLink">📖 About</a>
+  <button id="mobileCartBtn" class="cart-mobile">
+    <i class="fas fa-shopping-bag"></i> Cart <span id="cartCountBadgeMobile" class="cart-count-badge" style="margin-left: 8px;">0</span>
+  </button>
 </div>
 
 <div id="wrapper">
-  <div class="w3-main w3-content w3-padding">
-
-    <div class="w3-row-padding w3-padding-16 w3-center" id="herbs"></div>
-
-    <hr>
-
-    <div class="w3-container w3-card w3-padding">
-
-      <h2>Your Cart</h2>
-
-      <div id="cart">Your cart is empty</div>
-      <h3 id="total"></h3>
-
-      <hr>
-
-      <input id="customerName" class="w3-input w3-border" placeholder="Full Name">
-      <input id="customerPhone" class="w3-input w3-border" placeholder="Phone Number" style="margin-top:5px;">
-
-      <select id="deliveryOption" class="w3-select w3-border" style="margin-top:5px;" onchange="toggleAddress()">
-        <option value="pickup">Pickup</option>
-        <option value="delivery">Delivery</option>
-      </select>
-
-      <textarea id="customerAddress" class="w3-input w3-border"
-        placeholder="Delivery Address"
-        style="margin-top:5px; display:none;"></textarea>
-
-      <br>
-
-      <button onclick="payNow()" class="w3-button w3-green w3-round">
-        Pay Now
-      </button>
-
+  <div class="products-grid" id="herbsGrid"></div>
+  
+  <div id="about" class="about-section">
+    <h2><i class="fas fa-leaf"></i> Rooted in Nature, Powered by Gold</h2>
+    <p>Grow Roots brings you ethically sourced herbs, serums, and superfoods — pure potency in every jar. Our green & gold promise: no fillers, authentic ingredients, real transformation.</p>
+    
+    <div class="contact-details">
+      <p><i class="fas fa-map-marker-alt"></i> <strong>Visit us:</strong> 84 President Street, Johannesburg Central, The Markade Building</p>
+      <p><i class="fas fa-phone-alt"></i> <strong>Call / WhatsApp:</strong> +27 61 721 8089</p>
+      <p><i class="fas fa-envelope"></i> <strong>Email:</strong> hello@growroots.co.za</p>
     </div>
   </div>
 </div>
 
-<!-- PAYFAST -->
-<form id="payfastForm" method="post" action="https://www.payfast.co.za/eng/process">
+<!-- CART DRAWER -->
+<div id="cartOverlay" class="cart-overlay"></div>
+<div id="cartDrawer" class="cart-drawer">
+  <div class="drawer-header">
+    <h2 style="margin:0; color:#1e6b3b;">🛒 Your Cart</h2>
+    <button class="close-drawer" id="closeCartBtn">&times;</button>
+  </div>
+  <div id="cartItemsDrawer" class="cart-items-list">✨ Cart is empty</div>
+  <div id="drawerTotal" class="drawer-total"></div>
+  <hr style="border-color:#d4af37;">
+  <input id="drawerName" class="checkout-field" placeholder="Full Name *">
+  <input id="drawerPhone" class="checkout-field" type="tel" placeholder="Phone Number (e.g., +27 12 345 6789) *">
+  <select id="drawerDelivery" class="checkout-field" onchange="toggleDrawerAddress()">
+    <option value="pickup">📦 Pickup (free)</option>
+    <option value="delivery">🚚 Delivery (+R50 upon arrival)</option>
+  </select>
+  <textarea id="drawerAddress" class="checkout-field" placeholder="Delivery address" style="display:none;"></textarea>
+  <button class="pay-btn" id="drawerPayBtn">💳 Confirm Order & Show Bank Details</button>
+  <div id="bankDetailsContainer" style="display:none;" class="bank-details">
+    <strong>🏦 Bank Transfer Details</strong>
+    <p>Account Holder: <strong>Grow Roots</strong></p>
+    <p>Bank: <strong>FNB BUSINESS ACCOUNT</strong></p>
+    <p>Account Number: <strong>63173680068</strong></p>
+    <p>Branch Code: <strong>250655</strong></p>
+    <p>Reference: <strong id="orderRef">GR-XXXX</strong></p>
+    <p style="margin-top:12px;">⚠️ Please use the order number as reference. After payment, WhatsApp proof to <strong>+27 61 721 8089</strong>.</p>
+  </div>
+</div>
 
-  <input type="hidden" name="merchant_id" value="YOUR_MERCHANT_ID">
-  <input type="hidden" name="merchant_key" value="YOUR_MERCHANT_KEY">
-
-  <input type="hidden" name="amount" id="pf_amount">
-  <input type="hidden" name="item_name" value="Grow Roots Order">
-  <input type="hidden" name="m_payment_id" id="pf_order_id">
-
-  <input type="hidden" name="return_url" value="success.html">
-  <input type="hidden" name="cancel_url" value="cancel.html">
-
-</form>
+<div id="toastMsg" class="toast-notify">✨ Added</div>
 
 <script>
-
-function generateOrderNumber() {
-  return "ORD-" + Math.floor(100000 + Math.random() * 900000);
-}
-
-let selectedOptions = {};
-let cart = {};
-
+// PRODUCTS DATABASE (full list)
 const products = [
-  { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3,
-    description: "Appetite control\nBoost metabolism\nWeight management",
-    image: "./static/one.png"
-  },
-  { id: 2, name: "SlimAura Combo", price: 250,
-    description: "Weight management\nReduce bloating\nNatural support",
-    image: "./static/two.png"
-  },
-  { id: 3, name: "Flat Tummy Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3,
-    description: "Fat reduction\nMen & women\nDaily use",
-    image: "./static/three.png"
-  },
-
-  {  
-  id: 4, 
-  name: "Dr Jemaier Super-Whitening AHA Ginseng Serum + Lansyade AHA Lotion Combo", 
-  price: 250, 
-  description: "• Intensely Whitens in 3 Days\n• Clears Dark Spots & Blemishes\n• Fast Skin Whitening & Even Tone", 
-  image: "./static/four.png" 
-},
-{
-id: 5, 
-name: "Shenic Perfect Legs Serum",     
-price: 200,
-description: "• Firms & Smoothes Skin\n• Reduces Stretch Marks & Fades Dark Spots",
-image: "./static/five.png"   
-},
-{
-  id: 6, 
-  name: "DR-Rashel Black Soap",                          
-  price: 70,
-  description: "• Clears Pimples & Acne \n• Detoxifies & Cleanses Skin\n• Reduces Excess Oil\n• Anti-Bacterial Effect",
-  image: "./static/six.png"
-},
-{
-  id: 7, 
-  name: "Kojic White Face Cream",                          
-  price: 150,
-  description: "• Brightens  Skin\n• Fades Dark Spots\n• Even Skin Tone",
-  image: "./static/seven.png"
-},
-{
-  id: 8, 
-  name: "Lansyade Natural Skincare AHA White Body Serum",                          
-  price: 120,
-  description: "• Achieve Full Body Whitening\n• Clears Stubborn Dark Spots\n• Brightens and Evens Skin Tone",
-  image: "./static/eight.png"
-},
-{
-  id: 9, 
-  name: "Iyamo Essence",                          
-  price: 100,
-  description: "•  Say goodbye to piles \n• No more itching & discomfort \n•  Stay fresh & clean all day \n•  Intimate care on another level ",
-  image: "./static/nine.png"
-},
-{
-  id: 10, 
-  name: "Yoni Detox Pearls",                          
-  price: 40, bulkPrice: 30, bulkThreshold: 3,
-  description: "• 1 Pck(3 Pearls)\n• Reduces Stretch Marks\n• Fades Dark Spots",
-  image: "./static/ten.png"
-},
-
-  { 
-    id: 11, 
-    name: "Premium MORINGA Powder & MORINGA Capsules", 
-    options: [
-      { size: "100g", price: 50 },
-      { size: "1L", price: 120 },
-      { size: "2L", price: 200 },
-      { size: "1KG", price: 150 }
-    ],
-    description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients\n• Supports Overall Wellness", 
-    image: "./static/eleven.png" 
-  },
-
-  {
-    id: 12, 
-    name: "Patience's Beauty Premium Guava Powder", 
-    description: "• High Vitamin C\n• Digestive Health\n• Antioxidant Rich\n• Weight Management", 
-    image: "./static/twelve.png",
-    variations: [
-      { size: "100g", price: 50, bulkPrice: 30, bulkThreshold: 10 },
-      { size: "1Lt", price: 100, bulkPrice: 100, bulkThreshold: 1 },
-      { size: "2Lt", price: 120, bulkPrice: 120, bulkThreshold: 1 },
-      { size: "5Lt", price: 500, bulkPrice: 500, bulkThreshold: 1 }
-    ]
-  },
-
-  { 
-    id: 13, 
-    name: "Patience's Beauty Premium Cinnamon Sticks", 
-    description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", 
-    image: "./static/thirteen.png",
-    variations: [
-      { size: "100g (Split)", price: 50, bulkPrice: 30, bulkThreshold: 10 },
-      { size: "500g (Split)", price: 50, bulkPrice: 30, bulkThreshold: 5 },
-      { size: "500g (Premium)", price: 200, bulkPrice: 200, bulkThreshold: 1 },
-      { size: "1kg", price: 350, bulkPrice: 350, bulkThreshold: 1 }
-    ]
-  },
-  {
-    id: 14, 
-    name: "Lantana Camara Leaf Powder",     
-price: 0,
-description: "• Sharpens memory\n• Combats infections\n• Reduces inflammation\n• Alleviates pain & inflammation\n• Supports diabetes control",
-image: "./static/fourteen.png" 
-  },
-{
-  id: 15, 
-  name: "Blackseeds Powder", 
-  options: [
-      { size: "100g", price: 80 },
-      { size: "1L", price: 200 },
-      { size: "2L", price: 350 },
-      { size: "5L", price: 800 }
-],
-  description: "• Boots Immune System\n• Supports Heart Health\n• Aids in Digestion\n•Rich in Antioxidants",
-  image: "./static/fifteen.png",
-},
-{
-  id: 16, 
-  name: "SourSop Powder", 
-    options: [
-      { size: "200g", price: 100 },
-      { size: "1L", price: 250 },
-      { size: "2L", price: 400 },
-      { size: "5L", price: 800 }
-],
-  description: "• Boosts Immune System\n• Fights Inflammation\n• Aids in Cancer Prevention\n• Improve Digestion", 
-  image: "./static/sixteen.png"
-},
-{
-  id: 17, 
-  name: "Tumeric Powder", 
-  options: [
-      { size: "100g", price: 50 },
-      { size: "1L", price: 100 },
-      { size: "2L", price: 200 },
-      { size: "5L", price: 500 },
-      {size: "1kg", price: 150 }
-],
-  description: "• Supports healthy cell function\n• Supports cognitive function\n• Promotes healthy hair growth ", 
-  image: "./static/seventeen.png"  
-},
-{
-  id: 18, 
-  name: "Rosemary leaves", 
-  options: [
-      { size: "100g", price: 50 },
-      { size: "1L", price: 100 },
-      { size: "2L", price: 200 },
-      { size: "5L", price: 350 },
-      {size: "1kg", price: 150 },
-      {size: "10g", price: 200 }
-],
-  description: "• Improve concentration\n• Promote hair growth\n• Anti-Inflammatory", 
-  image: "./static/eighteen.png"
-},
-{
-  id: 19, 
-  name: "Pumpkin seeds", 
-  options: [
-      { size: "100g", price: 80 },
-      { size: "1L", price: 250 },
-      { size: "2L", price: 400 },
-      { size: "5L", price: 800 }
-    
-],
-  description: "• Hign in antioxidants, heart-healthy fats\n• Supports prostate and bladder health\n• Rich in essential nutrients like zinc", 
-  image: "./static/nineteen.png"
-},
-{
-  id: 20, 
-  name: "AMLA Powder", 
-   options: [
-      { size: "100g", price: 80 },
-      { size: "1L", price: 250 },
-      { size: "2L", price: 400 },
-      { size: "5L", price: 800 },
-      {size: "1kg", price: 400 }
-    
-],
-
-  description: "• Improve concentration\n• Very high in Vitamin C\n• Supports immune system health", 
-  image: "./static/twenty.png"
-},
-{
-  id: 20, 
-  name: "Yoni Steaming Herbs", 
-   options: [
-      { size: "100g", price: 50 },
-      { size: "500g", price: 80 },
-      { size: "1L", price: 100 },
-      { size: "2L", price: 200 },
-      { size: "5L", price: 400 }
-    
-],
-
-  description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients\n• Supports Overall Wellness", 
-  image: "./static/twenty-one.png"
-}
-
+  { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3, description: "Appetite control\nBoost metabolism\nWeight management", image: "./static/one.png", type: "simple" },
+  { id: 2, name: "SlimAura Combo", price: 250, description: "Weight management\nReduce bloating\nNatural support", image: "./static/two.png", type: "simple" },
+  { id: 3, name: "Flat Tummy Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3, description: "Fat reduction\nMen & women\nDaily use", image: "./static/three.png", type: "simple" },
+  { id: 4, name: "Dr Jemaier Super-Whitening AHA Ginseng Serum + Lansyade AHA Lotion Combo", price: 250, description: "• Intensely Whitens in 3 Days\n• Clears Dark Spots & Blemishes\n• Fast Skin Whitening & Even Tone", image: "./static/four.png", type: "simple" },
+  { id: 5, name: "Shenic Perfect Legs Serum", price: 200, description: "• Firms & Smoothes Skin\n• Reduces Stretch Marks & Fades Dark Spots", image: "./static/five.png", type: "simple" },
+  { id: 6, name: "DR-Rashel Black Soap", price: 70, description: "• Clears Pimples & Acne\n• Detoxifies & Cleanses Skin\n• Reduces Excess Oil\n• Anti-Bacterial Effect", image: "./static/six.png", type: "simple" },
+  { id: 7, name: "Kojic White Face Cream", price: 150, description: "• Brightens Skin\n• Fades Dark Spots\n• Even Skin Tone", image: "./static/seven.png", type: "simple" },
+  { id: 8, name: "Lansyade Natural Skincare AHA White Body Serum", price: 120, description: "• Achieve Full Body Whitening\n• Clears Stubborn Dark Spots\n• Brightens and Evens Skin Tone", image: "./static/eight.png", type: "simple" },
+  { id: 14, name: "Lantana Camara Leaf Powder", price: 75, description: "• Sharpens memory\n• Combats infections\n• Reduces inflammation\n• Alleviates pain & inflammation\n• Supports diabetes control", image: "./static/fourteen.png", type: "simple" },
+  { id: 9, name: "Iyamo Essence", price: 100, description: "• Say goodbye to piles \n• No more itching & discomfort \n• Stay fresh & clean all day \n• Intimate care on another level", image: "./static/nine.png", type: "simple" },
+  { id: 10, name: "Yoni Detox Pearls", price: 40, bulkPrice: 30, bulkThreshold: 3, description: "• 1 Pck(3 Pearls)\n• Reduces Stretch Marks\n• Fades Dark Spots", image: "./static/ten.png", type: "bulk" },
+  { id: 11, name: "Premium MORINGA Powder & Capsules", options: [{size:"100g",price:50},{size:"1L",price:120},{size:"2L",price:200},{size:"1KG",price:150}], description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients", image: "./static/eleven.png", type: "options" },
+  { id: 12, name: "Patience's Beauty Premium Guava Powder", description: "• High Vitamin C\n• Digestive Health\n• Antioxidant Rich\n• Weight Management", image: "./static/twelve.png", type: "variations", variations: [{size:"100g",price:50,bulkPrice:30,bulkThreshold:10},{size:"1Lt",price:100,bulkPrice:100,bulkThreshold:1},{size:"2Lt",price:120,bulkPrice:120,bulkThreshold:1},{size:"5Lt",price:500,bulkPrice:500,bulkThreshold:1}] },
+  { id: 13, name: "Patience's Beauty Premium Cinnamon Sticks", description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", image: "./static/thirteen.png", type: "variations", variations: [{size:"100g (Split)",price:50,bulkPrice:30,bulkThreshold:10},{size:"500g (Split)",price:50,bulkPrice:30,bulkThreshold:5},{size:"500g (Premium)",price:200,bulkPrice:200,bulkThreshold:1},{size:"1kg",price:350,bulkPrice:350,bulkThreshold:1}] },
+  { id: 15, name: "Blackseeds Powder", options: [{size:"100g",price:80},{size:"1L",price:200},{size:"2L",price:350},{size:"5L",price:800}], description: "• Boosts Immune System\n• Supports Heart Health\n• Aids in Digestion\n•Rich in Antioxidants", image: "./static/fifteen.png", type: "options" },
+  { id: 16, name: "SourSop Powder", options: [{size:"200g",price:100},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• Boosts Immune System\n• Fights Inflammation\n• Aids in Cancer Prevention\n• Improve Digestion", image: "./static/sixteen.png", type: "options" },
+  { id: 17, name: "Turmeric Powder", options: [{size:"100g",price:50},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:500},{size:"1kg",price:150}], description: "• Supports healthy cell function\n• Supports cognitive function\n• Promotes healthy hair growth ", image: "./static/seventeen.png", type: "options" },
+  { id: 18, name: "Rosemary Leaves", options: [{size:"100g",price:50},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:350},{size:"1kg",price:150},{size:"10g",price:200}], description: "• Improve concentration\n• Promote hair growth\n• Anti-Inflammatory", image: "./static/eighteen.png", type: "options" },
+  { id: 19, name: "Pumpkin Seeds", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• High in antioxidants, heart-healthy fats\n• Supports prostate and bladder health\n• Rich in essential nutrients like zinc", image: "./static/nineteen.png", type: "options" },
+  { id: 20, name: "AMLA Powder", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800},{size:"1kg",price:400}], description: "• Improve concentration\n• Very high in Vitamin C\n• Supports immune system health", image: "./static/twenty.png", type: "options" },
+  { id: 21, name: "Yoni Steaming Herbs", options: [{size:"100g",price:50},{size:"500g",price:80},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:400}], description: "• Traditional cleansing & wellness\n• Supports feminine care", image: "./static/twenty-one.png", type: "options" }
 ];
 
-// ---------------- CART LOGIC ----------------
+let cart = {};
+let selectedOptions = {};
 
-function addToCart(id) {
-  cart[id] = (cart[id] || 0) + 1;
-  updateCart();
-}
-
-function decreaseQty(id) {
-  if (!cart[id]) return;
-  cart[id]--;
-  if (cart[id] <= 0) delete cart[id];
-  updateCart();
-}
-
-function removeItem(id) {
-  delete cart[id];
-  updateCart();
-}
-
-function toggleAddress() {
-  document.getElementById("customerAddress").style.display =
-    document.getElementById("deliveryOption").value === "delivery"
-    ? "block" : "none";
-}
-
-// ---------------- PRICE HANDLER ----------------
-
-function getPrice(p, qty, optIndex = 0) {
-  if (p.options) return p.options[optIndex]?.price ?? 0;
-
-  if (p.variations) {
-    let v = p.variations[optIndex];
-    if (!v) return 0;
-
-    if (qty >= v.bulkThreshold) return v.bulkPrice;
+function getProductById(id) { return products.find(p=>p.id===id); }
+function getItemPrice(product, variantIdx, qty) {
+  if(product.type==="options" && product.options) return product.options[variantIdx]?.price||0;
+  if(product.type==="variations" && product.variations){
+    let v = product.variations[variantIdx];
+    if(!v) return 0;
+    if(v.bulkThreshold && qty>=v.bulkThreshold) return v.bulkPrice;
     return v.price;
   }
-
-  return p.price ?? 0;
+  if(product.bulkThreshold && qty>=product.bulkThreshold && product.bulkPrice) return product.bulkPrice;
+  return product.price||0;
 }
-
-// ---------------- PRODUCTS ----------------
-
-function loadProducts() {
-  let html = "";
-
-  products.forEach(p => {
-
-    let dropdown = "";
-
-    if (p.options) {
-      dropdown = `<select onchange="selectedOptions[${p.id}] = this.value">
-        ${p.options.map((o,i)=>`
-          <option value="${i}">${o.size} - R${o.price}</option>
-        `).join("")}
-      </select>`;
-    }
-
-    if (p.variations) {
-      dropdown = `<select onchange="selectedOptions[${p.id}] = this.value">
-        ${p.variations.map((o,i)=>`
-          <option value="${i}">${o.size} - R${o.price}</option>
-        `).join("")}
-      </select>`;
-    }
-
-    html += `
-      <div class="w3-col l3 m6 s6">
-        <div class="herb-card w3-card">
-
-          <img src="${p.image}" class="product-img">
-
-          <b>${p.name}</b>
-
-          <div style="font-size:12px; white-space:pre-line;">
-            ${p.description}
-          </div>
-          
-
-          <div class="price">R${p.price ?? (p.options ? p.options[0].price : p.variations ? p.variations[0].price : 0)}</div>
-
-          ${dropdown}
-
-          <button onclick="addToCart(${p.id})"
-            class="w3-button w3-green w3-small w3-round"
-            style="width:100%; margin-top:6px;">
-            Add
-          </button>
-
-        </div>
-      </div>
-    `;
-  });
-
-  document.getElementById("herbs").innerHTML = html;
+function getVariantLabel(product, idx){
+  if(product.type==="options" && product.options[idx]) return product.options[idx].size;
+  if(product.type==="variations" && product.variations[idx]) return product.variations[idx].size;
+  return "";
 }
-
-// ---------------- CART ----------------
-
-function updateCart() {
-  let html = "";
-  let total = 0;
-
-  if (Object.keys(cart).length === 0) {
-    document.getElementById("cart").innerHTML = "Your cart is empty";
-    document.getElementById("total").innerText = "";
-    return;
+function showToast(msg){
+  let toast = document.getElementById("toastMsg");
+  toast.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"), 1800);
+}
+function updateAllUI(){
+  let totalItems = Object.values(cart).reduce((a,b)=>a+b,0);
+  document.getElementById("cartCountBadgeDesktop").innerText = totalItems;
+  document.getElementById("cartCountBadgeMobile").innerText = totalItems;
+  let drawerHtml = "";
+  let grandTotal = 0;
+  for(let [key, qty] of Object.entries(cart)){
+    let [pid, vidx] = key.split(":");
+    let product = getProductById(parseInt(pid));
+    let vIdx = parseInt(vidx);
+    if(!product) continue;
+    let unitPrice = getItemPrice(product, vIdx, qty);
+    let totalItem = unitPrice * qty;
+    grandTotal += totalItem;
+    let label = getVariantLabel(product, vIdx);
+    let displayName = label ? `${product.name} (${label})` : product.name;
+    drawerHtml += `<div class="cart-item"><div class="cart-item-info"><strong>${escapeHtml(displayName)}</strong><br>R${unitPrice} x ${qty}<br><b>R${totalItem}</b></div><div class="cart-item-actions"><button onclick="decreaseQty(${product.id}, ${vIdx})">−</button><button onclick="addToCartDirect(${product.id}, null, true)">+</button><button onclick="removeItem(${product.id}, ${vIdx})">🗑️</button></div></div>`;
   }
-
-  for (let id in cart) {
-    let p = products.find(x => x.id == id);
-    let qty = cart[id];
-
-    let optIndex = selectedOptions[id] || 0;
-    let price = getPrice(p, qty, optIndex);
-
-    total += price * qty;
-
-    html += `
-      <div class="cart-item">
-        <div>${p.name}<br>R${price} x ${qty}</div>
-
-        <div>
-          <button onclick="decreaseQty(${id})">-</button>
-          <button onclick="addToCart(${id})">+</button>
-          <button onclick="removeItem(${id})">x</button>
-        </div>
-      </div>
-    `;
+  if(Object.keys(cart).length===0) drawerHtml = "<div style='padding:20px;text-align:center;'>✨ Your cart is waiting for greens & gold ✨</div>";
+  document.getElementById("cartItemsDrawer").innerHTML = drawerHtml;
+  document.getElementById("drawerTotal").innerHTML = grandTotal > 0 ? `Total: R${grandTotal.toFixed(2)}` : "";
+  return grandTotal;
+}
+function addToCartDirect(productId, btnElement, silent=false){
+  let product = getProductById(productId);
+  if(!product) return;
+  let variantIdx = 0;
+  if(product.type==="options" || product.type==="variations"){
+    variantIdx = selectedOptions[productId] !== undefined ? parseInt(selectedOptions[productId]) : 0;
+    if(selectedOptions[productId]===undefined) selectedOptions[productId]=0;
   }
+  let key = `${productId}:${variantIdx}`;
+  cart[key] = (cart[key]||0)+1;
+  updateAllUI();
+  if(!silent){
+    let label = getVariantLabel(product, variantIdx);
+    let itemName = label ? `${product.name} (${label})` : product.name;
+    showToast(`➕ ${itemName} added · now ${cart[key]} in cart`);
+  }
+  if(btnElement){
+    btnElement.classList.add("added-feedback");
+    let orig = btnElement.innerHTML;
+    btnElement.innerHTML = "✓ Added!";
+    setTimeout(()=>{ btnElement.innerHTML=orig; btnElement.classList.remove("added-feedback"); }, 600);
+  }
+}
+window.addToCart = addToCartDirect;
+function decreaseQty(productId, variantIdx){
+  let key = `${productId}:${variantIdx}`;
+  if(cart[key]){
+    cart[key]--;
+    if(cart[key]<=0) delete cart[key];
+    updateAllUI();
+    let product = getProductById(productId);
+    let label = getVariantLabel(product, variantIdx);
+    let name = label ? `${product.name} (${label})` : product.name;
+    showToast(`➖ ${name} quantity decreased`);
+  }
+}
+function removeItem(productId, variantIdx){
+  let key = `${productId}:${variantIdx}`;
+  if(cart[key]){
+    delete cart[key];
+    updateAllUI();
+    let product = getProductById(productId);
+    let label = getVariantLabel(product, variantIdx);
+    let name = label ? `${product.name} (${label})` : product.name;
+    showToast(`🗑️ ${name} removed`);
+  }
+}
+function toggleDrawerAddress(){
+  let delivery = document.getElementById("drawerDelivery").value;
+  let addrField = document.getElementById("drawerAddress");
+  addrField.style.display = delivery === "delivery" ? "block" : "none";
+}
+function generateOrderNumber(){ return "GR-"+Date.now()+"-"+Math.floor(1000+Math.random()*9000); }
 
-  document.getElementById("cart").innerHTML = html;
-  document.getElementById("total").innerText = "Total: R" + total;
+// STRICT INTERNATIONAL PHONE VALIDATION
+function isValidPhone(phone) {
+  let cleaned = phone.replace(/[\s\(\)\-]/g, '');
+  if (!/^\+?\d+$/.test(cleaned)) return false;
+  let digits = cleaned.startsWith('+') ? cleaned.slice(1) : cleaned;
+  let length = digits.length;
+  if (length < 7 || length > 14) return false;
+  if (digits.startsWith('27') && length !== 11) return false;
+  if (digits.startsWith('0') && length !== 10) return false;
+  return true;
 }
 
-// ---------------- PAY ----------------
-
-function payNow() {
+function processOrderAndShowBank(){
+  let name = document.getElementById("drawerName").value.trim();
+  let phone = document.getElementById("drawerPhone").value.trim();
+  let deliveryMethod = document.getElementById("drawerDelivery").value;
+  let address = document.getElementById("drawerAddress").value.trim();
+  if(!name){ showToast("❌ Please enter your full name"); return; }
+  if(!phone){ showToast("❌ Please enter your phone number"); return; }
+  if(!isValidPhone(phone)){ showToast("⚠️ Enter a valid phone number (e.g., +27123456789 or 0712345678)"); return; }
+  if(deliveryMethod === "delivery" && !address){ showToast("🚚 Please enter delivery address"); return; }
+  if(Object.keys(cart).length===0){ showToast("🛒 Cart is empty"); return; }
+  let total = updateAllUI();
   let orderId = generateOrderNumber();
-  let total = 0;
-
-  for (let id in cart) {
-    let p = products.find(x => x.id == id);
-    let qty = cart[id];
-
-    let optIndex = selectedOptions[id] || 0;
-    total += getPrice(p, qty, optIndex) * qty;
-  }
-
-  document.getElementById("pf_amount").value = total.toFixed(2);
-  document.getElementById("pf_order_id").value = orderId;
-
-  document.getElementById("payfastForm").submit();
+  let orderData = { orderId, total, name, phone, deliveryMethod, address, items: cart, timestamp: new Date().toISOString() };
+  localStorage.setItem("lastGrowRootsOrder", JSON.stringify(orderData));
+  let bankDiv = document.getElementById("bankDetailsContainer");
+  document.getElementById("orderRef").innerText = orderId;
+  bankDiv.style.display = "block";
+  showToast(`✅ Order saved. Reference: ${orderId}`);
 }
+window.payNow = processOrderAndShowBank;
 
-loadProducts();
+function renderProductGrid(){
+  let grid = document.getElementById("herbsGrid");
+  let html = "";
+  products.forEach(p=>{
+    let variantHtml = "";
+    let displayPrice = p.price || 0;
+    let isVariant = false;
+    let variantOptions = [];
+    if(p.type==="options" && p.options){ variantOptions = p.options; isVariant=true; displayPrice = p.options[0]?.price||0; }
+    else if(p.type==="variations" && p.variations){ variantOptions = p.variations; isVariant=true; displayPrice = p.variations[0]?.price||0; }
+    if(isVariant){
+      variantHtml = `<select id="sel_${p.id}" data-pid="${p.id}">${variantOptions.map((opt,i)=>`<option value="${i}">${opt.size} - R${opt.price}</option>`).join("")}</select>`;
+      if(selectedOptions[p.id]===undefined) selectedOptions[p.id]=0;
+    } else { variantHtml = `<div style="height:40px;"></div>`; }
+    html += `<div class="herb-card"><img src="${p.image}" class="product-img" loading="lazy"><b>${escapeHtml(p.name)}</b><div class="description-text">${p.description.replace(/\n/g,'<br>')}</div><div class="price">R${displayPrice}</div>${variantHtml}<button class="add-btn" data-pid="${p.id}">🛒 Add to Cart</button></div>`;
+  });
+  grid.innerHTML = html;
+  products.forEach(p=>{
+    let sel = document.getElementById(`sel_${p.id}`);
+    if(sel){
+      sel.value = selectedOptions[p.id]||0;
+      sel.onchange = (e)=>{ selectedOptions[p.id] = parseInt(e.target.value); };
+    }
+    let btn = document.querySelector(`.add-btn[data-pid="${p.id}"]`);
+    if(btn) btn.onclick = (e) => addToCartDirect(p.id, btn, false);
+  });
+}
+function escapeHtml(str){ return str.replace(/[&<>]/g,function(m){if(m==='&')return'&amp;';if(m==='<')return'&lt;';if(m==='>')return'&gt;';return m;}); }
 
+// DRAWER CONTROLS
+function openDrawer(){ document.getElementById("cartOverlay").classList.add("open"); document.getElementById("cartDrawer").classList.add("open"); }
+function closeDrawer(){ document.getElementById("cartOverlay").classList.remove("open"); document.getElementById("cartDrawer").classList.remove("open"); }
+document.getElementById("openCartBtnDesktop").onclick = openDrawer;
+document.getElementById("closeCartBtn").onclick = closeDrawer;
+document.getElementById("cartOverlay").onclick = closeDrawer;
+document.getElementById("drawerPayBtn").onclick = processOrderAndShowBank;
+
+// MOBILE HAMBURGER MENU
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+hamburgerBtn.addEventListener("click", () => { mobileMenu.classList.toggle("open"); });
+document.getElementById("mobileProductsLink").addEventListener("click", () => { mobileMenu.classList.remove("open"); });
+document.getElementById("mobileAboutLink").addEventListener("click", () => { mobileMenu.classList.remove("open"); });
+document.getElementById("mobileCartBtn").addEventListener("click", () => { mobileMenu.classList.remove("open"); openDrawer(); });
+
+renderProductGrid();
+updateAllUI();
+toggleDrawerAddress();
+document.getElementById("drawerDelivery").addEventListener("change", toggleDrawerAddress);
 </script>
-
 </body>
 </html>
