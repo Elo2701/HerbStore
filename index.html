@@ -231,7 +231,39 @@ image: "./static/five.png"
       { size: "500g (Premium)", price: 200, bulkPrice: 200, bulkThreshold: 1 },
       { size: "1kg", price: 350, bulkPrice: 350, bulkThreshold: 1 }
     ]
-  }
+  },
+  {
+    id: 14, 
+    name: "Lantana Camara Leaf Powder",     
+price: 0,
+description: "• Sharpens memory\n• Combats infections\n• Reduces inflammation\n• Alleviates pain & inflammation\n• Supports diabetes control",
+image: "./static/fourteen.png" 
+  },
+{
+  id: 15, 
+  name: "Blackseeds Powder", 
+  options: [
+      { size: "100g", price: 80 },
+      { size: "1L", price: 200 },
+      { size: "2L", price: 350 },
+      { size: "5L", price: 800 }
+],
+  description: "• Boots Immune System\n• Supports Heart Health\n• Aids in Digestion\n•Rich in Antioxidants",
+  image: "./static/fifteen.png",
+},
+{
+  id: 16, 
+  name: "SourSop Powder", 
+    options: [
+      { size: "200g", price: 100 },
+      { size: "1L", price: 250 },
+      { size: "2L", price: 400 },
+      { size: "5L", price: 800 }
+],
+  description: "• Boosts Immune System\n• Fights Inflammation\n• Aids in Cancer Prevention\n• Improve Digestion", 
+  image: "./static/sixteen.png"
+}
+
 ];
 
 // ---------------- CART LOGIC ----------------
@@ -311,6 +343,7 @@ function loadProducts() {
           <div style="font-size:12px; white-space:pre-line;">
             ${p.description}
           </div>
+          
 
           <div class="price">R${p.price ?? (p.options ? p.options[0].price : p.variations ? p.variations[0].price : 0)}</div>
 
