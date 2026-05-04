@@ -4,524 +4,69 @@
 <title>Grow Roots – Natural Wellness</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Karma", serif;
-  background: #ffffff;
-  color: #111111;
-  scroll-behavior: smooth;
-}
-
-/* ----- COLOR THEME: GREEN + GOLD + WHITE + BLACK ----- */
-:root {
-  --grow-green: #1e6b3b;
-  --grow-gold: #d4af37;
-  --grow-dark: #111111;
-  --grow-white: #ffffff;
-}
-
-/* STICKY NAVIGATION */
-.top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--grow-white);
-  border-bottom: 2px solid var(--grow-gold);
-  padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.02);
-}
-
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-img {
-  height: 55px;
-  width: auto;
-  object-fit: contain;
-}
-
-.logo-text-wrapper {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-
-.logo-text-main {
-  font-weight: 700;
-  font-size: 1.45rem;
-  letter-spacing: -0.2px;
-  color: var(--grow-green);
-}
-
-.logo-text-sub {
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--grow-gold);
-  letter-spacing: -0.1px;
-}
-
-/* desktop nav links */
-.nav-links {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.nav-links a {
-  text-decoration: none;
-  font-weight: 500;
-  color: var(--grow-dark);
-  transition: 0.2s;
-  font-size: 1rem;
-  border-bottom: 2px solid transparent;
-  padding-bottom: 4px;
-  cursor: pointer;
-}
-
-.nav-links a:hover {
-  color: var(--grow-gold);
-  border-bottom-color: var(--grow-gold);
-}
-
-.cart-icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.6rem;
-  cursor: pointer;
-  position: relative;
-  color: var(--grow-green);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-}
-
-.cart-count-badge {
-  background: var(--grow-gold);
-  color: var(--grow-dark);
-  font-size: 0.7rem;
-  font-weight: bold;
-  border-radius: 40px;
-  padding: 2px 8px;
-  min-width: 24px;
-  text-align: center;
-}
-
-/* hamburger menu (hidden on desktop) */
-.hamburger {
-  display: none;
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  color: var(--grow-green);
-  cursor: pointer;
-}
-
-/* mobile dropdown menu */
-.mobile-menu {
-  display: none;
-  position: absolute;
-  top: 85px;
-  left: 0;
-  width: 100%;
-  background: white;
-  border-top: 2px solid var(--grow-gold);
-  border-bottom: 2px solid var(--grow-gold);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  z-index: 999;
-  flex-direction: column;
-  padding: 16px 24px;
-  gap: 16px;
-}
-
-.mobile-menu a, .mobile-menu button {
-  font-size: 1.2rem;
-  text-decoration: none;
-  color: var(--grow-dark);
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 8px 0;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.mobile-menu a:hover, .mobile-menu button:hover {
-  color: var(--grow-gold);
-}
-
-.mobile-menu .cart-mobile {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* media queries */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-  .hamburger {
-    display: block;
-  }
-  .mobile-menu.open {
-    display: flex;
-  }
-  .top-nav {
-    padding: 12px 20px;
-  }
-  .logo-text-main {
-    font-size: 1.2rem;
-  }
-  .logo-text-sub {
-    font-size: 0.6rem;
-  }
-}
-
-/* main container */
-#wrapper {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 28px 24px 60px;
-}
-
-/* PRODUCT GRID: 4 columns desktop, 2 columns phones/tablets */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px 24px;
-  margin: 32px 0 48px;
-  scroll-margin-top: 100px;
-}
-
-/* tablet & phone: 2 columns */
-@media (max-width: 992px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-}
-
-@media (max-width: 540px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-/* product card */
-.herb-card {
-  background: var(--grow-white);
-  border-radius: 28px;
-  transition: all 0.2s ease;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 18px 16px 20px;
-  border: 1px solid #ece8e0;
-}
-
-.herb-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 28px rgba(0,0,0,0.08);
-  border-color: var(--grow-gold);
-}
-
-.product-img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  background: #fcf9f2;
-  border-radius: 24px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.herb-card b {
-  font-size: 1rem;
-  line-height: 1.35;
-  color: var(--grow-green);
-}
-
-.description-text {
-  font-size: 12px;
-  color: #2c2c2c;
-  white-space: pre-line;
-  margin: 8px 0;
-  flex: 1;
-}
-
-.price {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--grow-gold);
-  margin: 10px 0 6px;
-}
-
-select {
-  font-size: 12px;
-  padding: 8px;
-  border-radius: 60px;
-  border: 1px solid #ddd8ce;
-  width: 100%;
-  margin: 5px 0 10px;
-  background: white;
-  font-weight: 500;
-}
-
-.add-btn {
-  background: var(--grow-green);
-  color: white;
-  border: none;
-  border-radius: 60px;
-  padding: 10px 0;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
-  width: 100%;
-  font-size: 0.85rem;
-}
-
-.add-btn:hover {
-  background: #0f5530;
-  transform: scale(0.97);
-}
-
-.added-feedback {
-  background: #d4af37 !important;
-  color: #111 !important;
-}
-
-/* ABOUT SECTION with contact details */
-.about-section {
-  background: #fef9ef;
-  border-radius: 48px;
-  padding: 40px 32px;
-  margin: 50px 0 20px;
-  text-align: center;
-  border: 1px solid var(--grow-gold);
-  scroll-margin-top: 100px;
-}
-
-.about-section h2 {
-  color: var(--grow-green);
-  margin-bottom: 20px;
-}
-
-.about-section p {
-  max-width: 700px;
-  margin: 0 auto 20px auto;
-  line-height: 1.6;
-  color: #1f2a1b;
-}
-
-.contact-details {
-  background: white;
-  border-radius: 32px;
-  padding: 20px;
-  margin-top: 20px;
-  display: inline-block;
-  text-align: left;
-  border: 1px solid var(--grow-gold);
-}
-
-.contact-details p {
-  margin: 8px 0;
-  font-size: 0.95rem;
-}
-
-.contact-details i {
-  color: var(--grow-green);
-  width: 24px;
-  margin-right: 8px;
-}
-
-/* CART DRAWER */
-.cart-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 1100;
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.25s ease;
-}
-
-.cart-overlay.open {
-  visibility: visible;
-  opacity: 1;
-}
-
-.cart-drawer {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 100%;
-  max-width: 500px;
-  height: 100%;
-  background: white;
-  box-shadow: -6px 0 24px rgba(0,0,0,0.12);
-  z-index: 1101;
-  transition: right 0.3s;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  padding: 24px 20px;
-  border-left: 4px solid var(--grow-gold);
-}
-
-.cart-drawer.open {
-  right: 0;
-}
-
-.drawer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid var(--grow-gold);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
-}
-
-.close-drawer {
-  background: none;
-  border: none;
-  font-size: 32px;
-  cursor: pointer;
-  color: var(--grow-green);
-}
-
-.cart-items-list {
-  flex: 1;
-  max-height: 45vh;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 14px 0;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee6db;
-  gap: 12px;
-}
-
-.cart-item-info {
-  flex: 2;
-  font-size: 0.85rem;
-}
-
-.cart-item-actions button {
-  background: #f0ede8;
-  border: none;
-  border-radius: 30px;
-  padding: 5px 12px;
-  margin: 0 3px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.drawer-total {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--grow-green);
-  margin: 5px 0;
-}
-
-.checkout-field {
-  width: 100%;
-  margin: 10px 0;
-  padding: 12px 16px;
-  border-radius: 60px;
-  border: 1px solid #ccc7bc;
-  background: white;
-  font-size: 0.9rem;
-}
-
-.pay-btn {
-  background: var(--grow-green);
-  color: white;
-  border: none;
-  border-radius: 60px;
-  padding: 14px;
-  width: 100%;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 12px;
-}
-
-.pay-btn:hover {
-  background: #0f5530;
-}
-
-/* Bank details modal (inside drawer) */
-.bank-details {
-  background: #fef9ef;
-  padding: 16px;
-  border-radius: 24px;
-  margin-top: 16px;
-  border-left: 4px solid var(--grow-gold);
-  font-size: 0.85rem;
-}
-
-.bank-details p {
-  margin: 8px 0;
-}
-
-.bank-details strong {
-  color: var(--grow-green);
-}
-
-.toast-notify {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1e3a2f;
-  color: var(--grow-gold);
-  padding: 10px 24px;
-  border-radius: 40px;
-  z-index: 1200;
-  font-size: 0.85rem;
-  opacity: 0;
-  transition: 0.2s;
-  pointer-events: none;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-.toast-notify.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-8px);
-}
+/* Your existing styles (same as before – kept compact for clarity) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-behavior: smooth; }
+:root { --grow-green: #1e6b3b; --grow-gold: #d4af37; --grow-dark: #111; --grow-white: #fff; }
+.top-nav { position: sticky; top: 0; z-index: 1000; background: var(--grow-white); border-bottom: 2px solid var(--grow-gold); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.logo-area { display: flex; align-items: center; gap: 12px; }
+.logo-img { height: 55px; width: auto; object-fit: contain; }
+.logo-text-wrapper { display: flex; flex-direction: column; line-height: 1.2; }
+.logo-text-main { font-weight: 700; font-size: 1.45rem; color: var(--grow-green); }
+.logo-text-sub { font-size: 0.7rem; font-weight: 500; color: var(--grow-gold); }
+.nav-links { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+.nav-links a { text-decoration: none; font-weight: 500; color: var(--grow-dark); transition: 0.2s; border-bottom: 2px solid transparent; padding-bottom: 4px; cursor: pointer; }
+.nav-links a:hover { color: var(--grow-gold); border-bottom-color: var(--grow-gold); }
+.cart-icon-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--grow-green); display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.cart-count-badge { background: var(--grow-gold); color: var(--grow-dark); font-size: 0.7rem; font-weight: bold; border-radius: 40px; padding: 2px 8px; min-width: 24px; text-align: center; }
+.hamburger { display: none; font-size: 1.8rem; background: none; border: none; color: var(--grow-green); cursor: pointer; }
+.mobile-menu { display: none; position: absolute; top: 85px; left: 0; width: 100%; background: white; border-top: 2px solid var(--grow-gold); border-bottom: 2px solid var(--grow-gold); box-shadow: 0 8px 16px rgba(0,0,0,0.1); z-index: 999; flex-direction: column; padding: 16px 24px; gap: 16px; }
+.mobile-menu a, .mobile-menu button { font-size: 1.2rem; text-decoration: none; color: var(--grow-dark); background: none; border: none; text-align: left; padding: 8px 0; font-weight: 500; cursor: pointer; }
+.mobile-menu a:hover, .mobile-menu button:hover { color: var(--grow-gold); }
+@media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: block; } .mobile-menu.open { display: flex; } .logo-text-main { font-size: 1.2rem; } .logo-text-sub { font-size: 0.6rem; } }
+#wrapper { max-width: 1280px; margin: 0 auto; padding: 28px 24px 60px; }
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 24px; margin: 32px 0 48px; scroll-margin-top: 100px; }
+@media (max-width: 992px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .products-grid { gap: 16px; } }
+.herb-card { background: var(--grow-white); border-radius: 28px; transition: all 0.2s ease; box-shadow: 0 6px 14px rgba(0,0,0,0.04); display: flex; flex-direction: column; height: 100%; padding: 18px 16px 20px; border: 1px solid #ece8e0; }
+.herb-card:hover { transform: translateY(-4px); box-shadow: 0 20px 28px rgba(0,0,0,0.08); border-color: var(--grow-gold); }
+.product-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; background: #fcf9f2; border-radius: 24px; padding: 12px; margin-bottom: 12px; }
+.herb-card b { font-size: 1rem; line-height: 1.35; color: var(--grow-green); }
+.description-text { font-size: 12px; color: #2c2c2c; white-space: pre-line; margin: 8px 0; flex: 1; }
+.price { font-size: 1.3rem; font-weight: 800; color: var(--grow-gold); margin: 10px 0 6px; }
+select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #ddd8ce; width: 100%; margin: 5px 0 10px; background: white; }
+.add-btn { background: var(--grow-green); color: white; border: none; border-radius: 60px; padding: 10px 0; font-weight: 700; cursor: pointer; width: 100%; }
+.add-btn:hover { background: #0f5530; transform: scale(0.97); }
+.added-feedback { background: #d4af37 !important; color: #111 !important; }
+.about-section { background: #fef9ef; border-radius: 48px; padding: 40px 32px; margin: 50px 0 20px; text-align: center; border: 1px solid var(--grow-gold); scroll-margin-top: 100px; }
+.about-section h2 { color: var(--grow-green); margin-bottom: 20px; }
+.about-section p { max-width: 700px; margin: 0 auto 20px; line-height: 1.6; }
+.contact-details { background: white; border-radius: 32px; padding: 20px; margin-top: 20px; display: inline-block; text-align: left; border: 1px solid var(--grow-gold); }
+.contact-details p { margin: 8px 0; font-size: 0.95rem; }
+.contact-details i { color: var(--grow-green); width: 24px; margin-right: 8px; }
+.cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1100; visibility: hidden; opacity: 0; transition: 0.25s ease; }
+.cart-overlay.open { visibility: visible; opacity: 1; }
+.cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 500px; height: 100%; background: white; box-shadow: -6px 0 24px rgba(0,0,0,0.12); z-index: 1101; transition: right 0.3s; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 20px; border-left: 4px solid var(--grow-gold); }
+.cart-drawer.open { right: 0; }
+.drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--grow-gold); padding-bottom: 16px; margin-bottom: 20px; }
+.close-drawer { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--grow-green); }
+.cart-items-list { flex: 1; max-height: 45vh; overflow-y: auto; margin-bottom: 20px; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; margin: 14px 0; padding: 10px 0; border-bottom: 1px solid #eee6db; gap: 12px; }
+.cart-item-info { flex: 2; font-size: 0.85rem; }
+.cart-item-actions button { background: #f0ede8; border: none; border-radius: 30px; padding: 5px 12px; margin: 0 3px; cursor: pointer; font-weight: bold; }
+.drawer-total { font-size: 1.8rem; font-weight: 800; color: var(--grow-green); margin: 5px 0; }
+.checkout-field { width: 100%; margin: 10px 0; padding: 12px 16px; border-radius: 60px; border: 1px solid #ccc7bc; background: white; font-size: 0.9rem; }
+.pay-btn { background: var(--grow-green); color: white; border: none; border-radius: 60px; padding: 14px; width: 100%; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 12px; }
+.pay-btn:hover { background: #0f5530; }
+.whatsapp-btn { background: #25D366; color: white; border: none; border-radius: 60px; padding: 14px; width: 100%; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
+.whatsapp-btn:hover { background: #128C7E; transform: scale(0.98); }
+.bank-details { background: #fef9ef; padding: 16px; border-radius: 24px; margin-top: 16px; border-left: 4px solid var(--grow-gold); font-size: 0.85rem; display: none; }
+.toast-notify { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e3a2f; color: var(--grow-gold); padding: 10px 24px; border-radius: 40px; z-index: 1200; font-size: 0.85rem; opacity: 0; transition: 0.2s; pointer-events: none; white-space: nowrap; font-weight: 600; }
+.toast-notify.show { opacity: 1; transform: translateX(-50%) translateY(-8px); }
 </style>
 </head>
 <body>
@@ -534,36 +79,25 @@ select {
       <div class="logo-text-sub">Natural Ingredients. Real Results.</div>
     </div>
   </div>
-  
   <div class="nav-links">
     <a href="#products-grid">🍃 Products</a>
     <a href="#about">📖 About</a>
-    <button class="cart-icon-btn" id="openCartBtnDesktop">
-      <i class="fas fa-shopping-bag"></i> 
-      <span id="cartCountBadgeDesktop" class="cart-count-badge">0</span>
-    </button>
+    <button class="cart-icon-btn" id="openCartBtnDesktop"><i class="fas fa-shopping-bag"></i> <span id="cartCountBadgeDesktop" class="cart-count-badge">0</span></button>
   </div>
-  
-  <button class="hamburger" id="hamburgerBtn">
-    <i class="fas fa-bars"></i>
-  </button>
+  <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
 </nav>
 
 <div id="mobileMenu" class="mobile-menu">
   <a href="#products-grid" id="mobileProductsLink">🍃 Products</a>
   <a href="#about" id="mobileAboutLink">📖 About</a>
-  <button id="mobileCartBtn" class="cart-mobile">
-    <i class="fas fa-shopping-bag"></i> Cart <span id="cartCountBadgeMobile" class="cart-count-badge" style="margin-left: 8px;">0</span>
-  </button>
+  <button id="mobileCartBtn" class="cart-mobile"><i class="fas fa-shopping-bag"></i> Cart <span id="cartCountBadgeMobile" class="cart-count-badge" style="margin-left:8px;">0</span></button>
 </div>
 
 <div id="wrapper">
   <div class="products-grid" id="herbsGrid"></div>
-  
   <div id="about" class="about-section">
     <h2><i class="fas fa-leaf"></i> Rooted in Nature, Powered by Gold</h2>
     <p>Grow Roots brings you ethically sourced herbs, serums, and superfoods — pure potency in every jar. Our green & gold promise: no fillers, authentic ingredients, real transformation.</p>
-    
     <div class="contact-details">
       <p><i class="fas fa-map-marker-alt"></i> <strong>Visit us:</strong> 84 President Street, Johannesburg Central, The Markade Building</p>
       <p><i class="fas fa-phone-alt"></i> <strong>Call / WhatsApp:</strong> +27 61 721 8089</p>
@@ -575,10 +109,7 @@ select {
 <!-- CART DRAWER -->
 <div id="cartOverlay" class="cart-overlay"></div>
 <div id="cartDrawer" class="cart-drawer">
-  <div class="drawer-header">
-    <h2 style="margin:0; color:#1e6b3b;">🛒 Your Cart</h2>
-    <button class="close-drawer" id="closeCartBtn">&times;</button>
-  </div>
+  <div class="drawer-header"><h2 style="margin:0; color:#1e6b3b;">🛒 Your Cart</h2><button class="close-drawer" id="closeCartBtn">&times;</button></div>
   <div id="cartItemsDrawer" class="cart-items-list">✨ Cart is empty</div>
   <div id="drawerTotal" class="drawer-total"></div>
   <hr style="border-color:#d4af37;">
@@ -590,21 +121,27 @@ select {
   </select>
   <textarea id="drawerAddress" class="checkout-field" placeholder="Delivery address" style="display:none;"></textarea>
   <button class="pay-btn" id="drawerPayBtn">💳 Confirm Order & Show Bank Details</button>
-  <div id="bankDetailsContainer" style="display:none;" class="bank-details">
+  <div id="bankDetailsContainer" class="bank-details">
     <strong>🏦 Bank Transfer Details</strong>
     <p>Account Holder: <strong>Grow Roots</strong></p>
     <p>Bank: <strong>FNB BUSINESS ACCOUNT</strong></p>
     <p>Account Number: <strong>63173680068</strong></p>
     <p>Branch Code: <strong>250655</strong></p>
     <p>Reference: <strong id="orderRef">GR-XXXX</strong></p>
-    <p style="margin-top:12px;">⚠️ Please use the order number as reference. After payment, WhatsApp proof to <strong>+27 61 721 8089</strong>.</p>
+    <p style="margin-top:12px;">⚠️ Use the order number as reference. After payment, send proof to this WhatsApp.</p>
+    <button id="whatsappOrderBtn" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> 📱 Send Order to Shop (WhatsApp)</button>
   </div>
 </div>
 
 <div id="toastMsg" class="toast-notify">✨ Added</div>
 
 <script>
-// PRODUCTS DATABASE (full list)
+// ======================== YOUR WHATSAPP NUMBER ========================
+// 👇 CHANGE THIS NUMBER TO YOUR OWN WHATSAPP (with country code, no spaces, no '+')
+const OWNER_WHATSAPP = "27617218089";   // e.g., "27617218089" for South Africa
+// ======================================================================
+
+// PRODUCTS DATABASE (full list – same as before)
 const products = [
   { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3, description: "Appetite control\nBoost metabolism\nWeight management", image: "./static/one.png", type: "simple" },
   { id: 2, name: "SlimAura Combo", price: 250, description: "Weight management\nReduce bloating\nNatural support", image: "./static/two.png", type: "simple" },
@@ -614,12 +151,12 @@ const products = [
   { id: 6, name: "DR-Rashel Black Soap", price: 70, description: "• Clears Pimples & Acne\n• Detoxifies & Cleanses Skin\n• Reduces Excess Oil\n• Anti-Bacterial Effect", image: "./static/six.png", type: "simple" },
   { id: 7, name: "Kojic White Face Cream", price: 150, description: "• Brightens Skin\n• Fades Dark Spots\n• Even Skin Tone", image: "./static/seven.png", type: "simple" },
   { id: 8, name: "Lansyade Natural Skincare AHA White Body Serum", price: 120, description: "• Achieve Full Body Whitening\n• Clears Stubborn Dark Spots\n• Brightens and Evens Skin Tone", image: "./static/eight.png", type: "simple" },
-  { id: 14, name: "Lantana Camara Leaf Powder", price: 75, description: "• Sharpens memory\n• Combats infections\n• Reduces inflammation\n• Alleviates pain & inflammation\n• Supports diabetes control", image: "./static/fourteen.png", type: "simple" },
-  { id: 9, name: "Iyamo Essence", price: 100, description: "• Say goodbye to piles \n• No more itching & discomfort \n• Stay fresh & clean all day \n• Intimate care on another level", image: "./static/nine.png", type: "simple" },
-  { id: 10, name: "Yoni Detox Pearls", price: 40, bulkPrice: 30, bulkThreshold: 3, description: "• 1 Pck(3 Pearls)\n• Reduces Stretch Marks\n• Fades Dark Spots", image: "./static/ten.png", type: "bulk" },
-  { id: 11, name: "Premium MORINGA Powder & Capsules", options: [{size:"100g",price:50},{size:"1L",price:120},{size:"2L",price:200},{size:"1KG",price:150}], description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients", image: "./static/eleven.png", type: "options" },
-  { id: 12, name: "Patience's Beauty Premium Guava Powder", description: "• High Vitamin C\n• Digestive Health\n• Antioxidant Rich\n• Weight Management", image: "./static/twelve.png", type: "variations", variations: [{size:"100g",price:50,bulkPrice:30,bulkThreshold:10},{size:"1Lt",price:100,bulkPrice:100,bulkThreshold:1},{size:"2Lt",price:120,bulkPrice:120,bulkThreshold:1},{size:"5Lt",price:500,bulkPrice:500,bulkThreshold:1}] },
-  { id: 13, name: "Patience's Beauty Premium Cinnamon Sticks", description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", image: "./static/thirteen.png", type: "variations", variations: [{size:"100g (Split)",price:50,bulkPrice:30,bulkThreshold:10},{size:"500g (Split)",price:50,bulkPrice:30,bulkThreshold:5},{size:"500g (Premium)",price:200,bulkPrice:200,bulkThreshold:1},{size:"1kg",price:350,bulkPrice:350,bulkThreshold:1}] },
+  { id: 9, name: "Lantana Camara Leaf Powder", price: 75, description: "• Sharpens memory\n• Combats infections\n• Reduces inflammation\n• Alleviates pain & inflammation\n• Supports diabetes control", image: "./static/fourteen.png", type: "simple" },
+  { id: 10, name: "Iyamo Essence", price: 100, description: "• Say goodbye to piles \n• No more itching & discomfort \n• Stay fresh & clean all day \n• Intimate care on another level", image: "./static/nine.png", type: "simple" },
+  { id: 11, name: "Yoni Detox Pearls", price: 40, bulkPrice: 30, bulkThreshold: 3, description: "• 1 Pck(3 Pearls)\n• Reduces Stretch Marks\n• Fades Dark Spots", image: "./static/ten.png", type: "bulk" },
+  { id: 12, name: "Premium MORINGA Powder & Capsules", options: [{size:"100g",price:50},{size:"1L",price:120},{size:"2L",price:200},{size:"1KG",price:150}], description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients", image: "./static/eleven.png", type: "options" },
+  { id: 13, name: "Patience's Beauty Premium Guava Powder", description: "• High Vitamin C\n• Digestive Health\n• Antioxidant Rich\n• Weight Management", image: "./static/twelve.png", type: "variations", variations: [{size:"100g",price:50,bulkPrice:30,bulkThreshold:10},{size:"1Lt",price:100,bulkPrice:100,bulkThreshold:1},{size:"2Lt",price:120,bulkPrice:120,bulkThreshold:1},{size:"5Lt",price:500,bulkPrice:500,bulkThreshold:1}] },
+  { id: 14, name: "Patience's Beauty Premium Cinnamon Sticks", description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", image: "./static/thirteen.png", type: "variations", variations: [{size:"100g (Split)",price:50,bulkPrice:30,bulkThreshold:10},{size:"500g (Split)",price:50,bulkPrice:30,bulkThreshold:5},{size:"500g (Premium)",price:200,bulkPrice:200,bulkThreshold:1},{size:"1kg",price:350,bulkPrice:350,bulkThreshold:1}] },
   { id: 15, name: "Blackseeds Powder", options: [{size:"100g",price:80},{size:"1L",price:200},{size:"2L",price:350},{size:"5L",price:800}], description: "• Boosts Immune System\n• Supports Heart Health\n• Aids in Digestion\n•Rich in Antioxidants", image: "./static/fifteen.png", type: "options" },
   { id: 16, name: "SourSop Powder", options: [{size:"200g",price:100},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• Boosts Immune System\n• Fights Inflammation\n• Aids in Cancer Prevention\n• Improve Digestion", image: "./static/sixteen.png", type: "options" },
   { id: 17, name: "Turmeric Powder", options: [{size:"100g",price:50},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:500},{size:"1kg",price:150}], description: "• Supports healthy cell function\n• Supports cognitive function\n• Promotes healthy hair growth ", image: "./static/seventeen.png", type: "options" },
@@ -631,6 +168,9 @@ const products = [
 
 let cart = {};
 let selectedOptions = {};
+let currentOrderId = "";
+let currentOrderTotal = 0;
+let currentCustomer = { name: "", phone: "", deliveryMethod: "", address: "" };
 
 function getProductById(id) { return products.find(p=>p.id===id); }
 function getItemPrice(product, variantIdx, qty) {
@@ -653,7 +193,7 @@ function showToast(msg){
   let toast = document.getElementById("toastMsg");
   toast.textContent = msg;
   toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"), 1800);
+  setTimeout(()=>toast.classList.remove("show"), 2000);
 }
 function updateAllUI(){
   let totalItems = Object.values(cart).reduce((a,b)=>a+b,0);
@@ -676,6 +216,7 @@ function updateAllUI(){
   if(Object.keys(cart).length===0) drawerHtml = "<div style='padding:20px;text-align:center;'>✨ Your cart is waiting for greens & gold ✨</div>";
   document.getElementById("cartItemsDrawer").innerHTML = drawerHtml;
   document.getElementById("drawerTotal").innerHTML = grandTotal > 0 ? `Total: R${grandTotal.toFixed(2)}` : "";
+  currentOrderTotal = grandTotal;
   return grandTotal;
 }
 function addToCartDirect(productId, btnElement, silent=false){
@@ -727,13 +268,10 @@ function removeItem(productId, variantIdx){
 }
 function toggleDrawerAddress(){
   let delivery = document.getElementById("drawerDelivery").value;
-  let addrField = document.getElementById("drawerAddress");
-  addrField.style.display = delivery === "delivery" ? "block" : "none";
+  document.getElementById("drawerAddress").style.display = delivery === "delivery" ? "block" : "none";
 }
 function generateOrderNumber(){ return "GR-"+Date.now()+"-"+Math.floor(1000+Math.random()*9000); }
-
-// STRICT INTERNATIONAL PHONE VALIDATION
-function isValidPhone(phone) {
+function isValidPhone(phone){
   let cleaned = phone.replace(/[\s\(\)\-]/g, '');
   if (!/^\+?\d+$/.test(cleaned)) return false;
   let digits = cleaned.startsWith('+') ? cleaned.slice(1) : cleaned;
@@ -743,7 +281,35 @@ function isValidPhone(phone) {
   if (digits.startsWith('0') && length !== 10) return false;
   return true;
 }
-
+function buildWhatsAppMessage(){
+  let itemsText = "";
+  for(let [key, qty] of Object.entries(cart)){
+    let [pid, vidx] = key.split(":");
+    let p = getProductById(parseInt(pid));
+    if(!p) continue;
+    let label = getVariantLabel(p, parseInt(vidx));
+    let itemName = label ? `${p.name} (${label})` : p.name;
+    let price = getItemPrice(p, parseInt(vidx), qty);
+    itemsText += `• ${itemName} x ${qty} = R${(price*qty).toFixed(2)}\n`;
+  }
+  let message = `*🌿 NEW ORDER #${currentOrderId}*\n\n`;
+  message += `*Customer:* ${currentCustomer.name}\n`;
+  message += `*Phone:* ${currentCustomer.phone}\n`;
+  message += `*Delivery:* ${currentCustomer.deliveryMethod === "pickup" ? "Pickup" : "Delivery"}\n`;
+  if(currentCustomer.deliveryMethod === "delivery") message += `*Address:* ${currentCustomer.address}\n`;
+  message += `\n*ITEMS:*\n${itemsText}`;
+  message += `\n*TOTAL: R${currentOrderTotal.toFixed(2)}*\n\n`;
+  message += `*Bank Details:*\nFNB Business Account\nAccount: 63173680068\nBranch: 250655\nRef: ${currentOrderId}\n\n`;
+  message += `📱 Customer will send payment proof to this chat.`;
+  return message;
+}
+function sendOrderToOwner(){
+  if(!currentOrderId){ showToast("⚠️ Please confirm your order first"); return; }
+  let encodedMsg = encodeURIComponent(buildWhatsAppMessage());
+  let whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodedMsg}`;
+  window.open(whatsappUrl, '_blank');
+  showToast("📱 Opening WhatsApp to send order to shop owner");
+}
 function processOrderAndShowBank(){
   let name = document.getElementById("drawerName").value.trim();
   let phone = document.getElementById("drawerPhone").value.trim();
@@ -754,14 +320,14 @@ function processOrderAndShowBank(){
   if(!isValidPhone(phone)){ showToast("⚠️ Enter a valid phone number (e.g., +27123456789 or 0712345678)"); return; }
   if(deliveryMethod === "delivery" && !address){ showToast("🚚 Please enter delivery address"); return; }
   if(Object.keys(cart).length===0){ showToast("🛒 Cart is empty"); return; }
-  let total = updateAllUI();
-  let orderId = generateOrderNumber();
-  let orderData = { orderId, total, name, phone, deliveryMethod, address, items: cart, timestamp: new Date().toISOString() };
-  localStorage.setItem("lastGrowRootsOrder", JSON.stringify(orderData));
-  let bankDiv = document.getElementById("bankDetailsContainer");
-  document.getElementById("orderRef").innerText = orderId;
-  bankDiv.style.display = "block";
-  showToast(`✅ Order saved. Reference: ${orderId}`);
+  
+  currentOrderTotal = updateAllUI();
+  currentOrderId = generateOrderNumber();
+  currentCustomer = { name, phone, deliveryMethod, address };
+  
+  document.getElementById("orderRef").innerText = currentOrderId;
+  document.getElementById("bankDetailsContainer").style.display = "block";
+  showToast(`✅ Order ready! Click WhatsApp button to send to shop.`);
 }
 window.payNow = processOrderAndShowBank;
 
@@ -776,7 +342,7 @@ function renderProductGrid(){
     if(p.type==="options" && p.options){ variantOptions = p.options; isVariant=true; displayPrice = p.options[0]?.price||0; }
     else if(p.type==="variations" && p.variations){ variantOptions = p.variations; isVariant=true; displayPrice = p.variations[0]?.price||0; }
     if(isVariant){
-      variantHtml = `<select id="sel_${p.id}" data-pid="${p.id}">${variantOptions.map((opt,i)=>`<option value="${i}">${opt.size} - R${opt.price}</option>`).join("")}</select>`;
+      variantHtml = `<select id="sel_${p.id}">${variantOptions.map((opt,i)=>`<option value="${i}">${opt.size} - R${opt.price}</option>`).join("")}</select>`;
       if(selectedOptions[p.id]===undefined) selectedOptions[p.id]=0;
     } else { variantHtml = `<div style="height:40px;"></div>`; }
     html += `<div class="herb-card"><img src="${p.image}" class="product-img" loading="lazy"><b>${escapeHtml(p.name)}</b><div class="description-text">${p.description.replace(/\n/g,'<br>')}</div><div class="price">R${displayPrice}</div>${variantHtml}<button class="add-btn" data-pid="${p.id}">🛒 Add to Cart</button></div>`;
@@ -801,8 +367,9 @@ document.getElementById("openCartBtnDesktop").onclick = openDrawer;
 document.getElementById("closeCartBtn").onclick = closeDrawer;
 document.getElementById("cartOverlay").onclick = closeDrawer;
 document.getElementById("drawerPayBtn").onclick = processOrderAndShowBank;
+document.getElementById("whatsappOrderBtn").onclick = sendOrderToOwner;
 
-// MOBILE HAMBURGER MENU
+// MOBILE HAMBURGER
 const hamburgerBtn = document.getElementById("hamburgerBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 hamburgerBtn.addEventListener("click", () => { mobileMenu.classList.toggle("open"); });
