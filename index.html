@@ -182,7 +182,7 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
 const OWNER_WHATSAPP = "27617218089";   // South Africa
 // ======================================================================
 
-// PRODUCTS DATABASE WITH CATEGORIES
+// PRODUCTS DATABASE WITH CORRECT TYPES (options products fixed)
 const products = [
   { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3, description: "Appetite control\nBoost metabolism\nWeight management", image: "./static/one.png", type: "simple", category: "weight" },
   { id: 2, name: "SlimAura Combo", price: 250, description: "Weight management\nReduce bloating\nNatural support", image: "./static/two.png", type: "simple", category: "weight" },
@@ -205,12 +205,12 @@ const products = [
   { id: 19, name: "Pumpkin Seeds", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• High in antioxidants, heart-healthy fats\n• Supports prostate and bladder health\n• Rich in essential nutrients like zinc", image: "./static/nineteen.png", type: "options", category: "herbs" },
   { id: 20, name: "AMLA Powder", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800},{size:"1kg",price:400}], description: "• Improve concentration\n• Very high in Vitamin C\n• Supports immune system health", image: "./static/twenty.png", type: "options", category: "herbs" },
   { id: 21, name: "Yoni Steaming Herbs", options: [{size:"100g",price:50},{size:"500g",price:80},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:400}], description: "• Soothes and cleanses uterine tussius\n• Promotes deep relaxation and emotional balance\n• Helps regulate menstrual cycle", image: "./static/twenty-one.png", type: "options", category: "intimate" },
-  { id: 22, name: "Premium Soursop leaves", options: [{size:"200g",price:50},{size:"500g",price:80},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:400}], description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients", image: "./static/twenty-two.png", type: "simple", category: "herbs" },
-  { id: 23, name: "Raw Seamoss",  options: [{size:"200g",price:100,bulkPrice: 80, bulkThreshold: 3},{size:"1L",price:300},{size:"500ml (Seamoss gel)",price:100}],description: "• High in essential minerals\n• Supports thyroid function\n• Promotes skin health", image: "./static/twenty-three.png", type: "simple", category: "herbs" },
-  { id: 24, name: "Moringa Powder", options: [{size:"100g",price:50},{size:"1kg",price:150},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:500}], description: "• High in vitamins and minerals\n• Boosts energy and vitality\n• Support skin health", image: "./static/twenty-four.png", type: "simple", category: "herbs" },
-  { id: 25, name: "Neem Powder ", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• Aids digestion\n• Brain health support\n• Promotes restful sleep", image: "./static/twenty-six.png", type: "simple", category: "herbs" },
-  { id: 28, name: "Bay Leaves", options: [{size:"100g",price:50},{size:"2L",price:100},{size:"5L",price:200}], description: "• Supports digestive health, rich in antioxidants.\n• Add depth of flavor to various dishes\n• Known for anti-inflam properties", image: "./static/twenty-eight.png", type: "simple", category: "herbs" },
-  { id: 29, name: "Chia Seeds",options: [{size:"100g",price:80},{size:"1kg",price:400},{size:"1L",price:250},{size:"2L",price:400}], description: "• Fight free radicals\n• Sustained performance\n• Rich in fiber and to reduce gas and bloating", image: "./static/twenty-nine.png", type: "simple", category: "herbs" },
+  { id: 22, name: "Premium Soursop leaves", options: [{size:"200g",price:50},{size:"500g",price:80},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:400}], description: "• Boosts Energy Naturally\n• Supports Immune System\n• Rich in Vitamins & Nutrients", image: "./static/twenty-two.png", type: "options", category: "herbs" },
+  { id: 23, name: "Raw Seamoss",  options: [{size:"200g",price:100,bulkPrice:80,bulkThreshold:3},{size:"1L",price:300},{size:"500ml (Seamoss gel)",price:100}],description: "• High in essential minerals\n• Supports thyroid function\n• Promotes skin health", image: "./static/twenty-three.png", type: "options", category: "herbs" },
+  { id: 24, name: "Moringa Powder", options: [{size:"100g",price:50},{size:"1kg",price:150},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:500}], description: "• High in vitamins and minerals\n• Boosts energy and vitality\n• Support skin health", image: "./static/twenty-four.png", type: "options", category: "herbs" },
+  { id: 25, name: "Neem Powder ", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• Aids digestion\n• Brain health support\n• Promotes restful sleep", image: "./static/twenty-six.png", type: "options", category: "herbs" },
+  { id: 28, name: "Bay Leaves", options: [{size:"100g",price:50},{size:"2L",price:100},{size:"5L",price:200}], description: "• Supports digestive health, rich in antioxidants.\n• Add depth of flavor to various dishes\n• Known for anti-inflam properties", image: "./static/twenty-eight.png", type: "options", category: "herbs" },
+  { id: 29, name: "Chia Seeds",options: [{size:"100g",price:80},{size:"1kg",price:400},{size:"1L",price:250},{size:"2L",price:400}], description: "• Fight free radicals\n• Sustained performance\n• Rich in fiber and to reduce gas and bloating", image: "./static/twenty-nine.png", type: "options", category: "herbs" },
   { id: 30, name: "Liquid Chlorophyll Juice", price: 70, bulkPrice: 150, bulkThreshold: 6, description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", image: "./static/thirty.png", type: "simple", category: "herbs" },
   { id: 31, name: "Grace Lotion Duo", price: 250, description: "• High in antioxidants, heart-healthy fats\n• Supports prostate and bladder health\n• Rich in essential nutrients like zinc", image: "./static/thirty-one.png", type: "simple", category: "skin" },
   { id: 32, name: "Marine Collagen+", price: 500, description: "• Protein & Amino Acid Superfood\n• Anti-aging dietary supplement\n• Hair, Skin and Nail support", image: "./static/thirty-two.png", type: "simple", category: "skin" },
@@ -224,32 +224,32 @@ const products = [
   { id: 40, name: "Flat tummy", price: 150, description: "• Supports flat tummy\n• Boots body confidence", image: "./static/40.png", type: "simple", category: "weight" },
   { id: 41, name: "Sticks", price: 80, description: "• vaginal tighten\n• vaginal warm\n• stove always on 6", image: "./static/41.png", type: "simple", category: "intimate" },
   { id: 42, name: "Goji Berries", options: [{size:"100g",price:80},{size:"1L",price:400},{size:"2L",price:800},{size:"5L",price:1500}], description: "• Packed with Antioxidants\n• Boosts Immune System\n• Enhance Eye Health", image: "./static/42.png", type: "options", category: "herbs" },
-  { id: 43, name: "Lip Balm", price:30, description: "• Deeply moisturizes\n• Softens Dry lips\n• Protect & Repairs", image: "./static/43.png", type: "options", category: "skin" },
-  { id: 44, name: "Skin Whitening Tea", price:200, description: "• Whitening and Spots fading tea", image: "./static/44.png", type: "options", category: "skin" },
+  { id: 43, name: "Lip Balm", price:30, description: "• Deeply moisturizes\n• Softens Dry lips\n• Protect & Repairs", image: "./static/43.png", type: "simple", category: "skin" },
+  { id: 44, name: "Skin Whitening Tea", price:200, description: "• Whitening and Spots fading tea", image: "./static/44.png", type: "simple", category: "skin" },
   { id: 45, name: "Gluta Berry", price: 600, description: "• High glutathione 200000 Collagen+\n• Super antioxidant\n• Super anti-aging", image: "./static/45.png", type: "simple", category: "skin" },
   { id: 46, name: "Fat Burner", price: 180 , description: "• Burns fat\n• Healthy weight loss\n• Refresh your body\n• Cleanse & Detoxify", image: "./static/46.png", type: "simple", category: "weight" },
   { id: 47, name: "Ultimate maca", price: 180, description: "• Maka root & Black maca\n• Aguaje & Fenugreek\n• Tribulus & Dong quai extract", image: "./static/47.png", type: "simple", category: "curves" },
-  { id: 48, name: "Premium Tumeric Powder", options: [{size:"100g",price:50},{size:"1L",price:120},{size:"2L",price:200},{size:"5L",price:500}], description: "• 100% Natural Herbs", image: "./static/48.png", type: "simple", category: "herbs" },
+  { id: 48, name: "Premium Tumeric Powder", options: [{size:"100g",price:50},{size:"1L",price:120},{size:"2L",price:200},{size:"5L",price:500}], description: "• 100% Natural Herbs", image: "./static/48.png", type: "options", category: "herbs" },
   { id: 49, name: "Flex Seeds", price: 250, description: "• Aguaje Powder + Aguaje Capsules\n• Comprehensive support for skin health and immune system\n• Rich in vitamins A & C for overall wellness", image: "./static/49.png", type: "simple", category: "curves" },
   { id: 51, name: "Womb tea", price: 200, description: "• 10 Tea bags", image: "./static/51.png", type: "simple", category: "intimate" },
   { id: 52, name: "LAIT CLARIFIANT SKIN PERFECTOR", price: 400, description: "• Support skin health and radiance", image: "./static/52.png", type: "simple", category: "skin" },
   { id: 54, name: "Oriji plus pills", price: 350, description: "• Support body shape", image: "./static/54.png", type: "simple", category: "curves" },
   { id: 55, name: "BBL Huge Powder", price:180, description: "•Big, firming & lifting", image: "./static/55.png", type: "simple", category: "curves" },
   { id: 56, name: "Abanda", price: 100, description: "• Personalized herbal recommendations\n• Expert guidance on natural wellness\n• Tailored solutions for your health goals", image: "./static/56.png", type: "simple", category: "herbs" },
-  { id: 57, name: "Skin Beauty Glow tea", price: 250, description: "• 100% organic chinese herbal tea\n• help support skin'shealthy glow\n• help rejuctive and moisturize skin detox\n• durifies and remove fineliness", image: "./static/57.png", type: "options", category: "skin" },
-  { id: 58, name: "Alma Powder", price:80, description: "• Curated selection of our best-selling products\n• Delivered to your doorstep\n• Flexible subscription plans to suit your needs", image: "./static/58.png", type: "options", category: "herbs" },
-  { id: 60, name: "Hibiscus leaves", price: 100, description: "• High in vitamins and minerals\n• Boosts energy and vitality\n• Support skin health", image: "./static/60.png", type: "options", category: "herbs" },
-  { id: 61, name: "Dark Knuckle Whitening", price: 150, description: "Get rid of knuckies\n• Whitening complex", image: "./static/61.png", type: "options", category: "skin" },
-  { id: 62, name: "Hip Lift Up", price: 130, description: "• Hip massage cream\n• Your hip will be lifted and firm with natural extracts", image: "./static/62.png", type: "options", category: "curves" },
-  { id: 63, name: "Fit tea", price: 250, description: "• Burn fat\n• Reduce bloating\n• Slimming tea", image: "./static/63.png", type: "options", category: "weight" },
-  {id: 64, name: "Burn tummy tea with moringa", price: 200, description: "• Reduce bloating\n• Aids Digestion\n• Suppresses Appetite", image: "./static/64.png", type: "options", category: "weight" },
-  {id: 66, name: "Chebe Hair GRC", price: 80, description: "• Promotes hair growth", image: "./static/65.png", type: "options", category: "intimate" }, // hair care inside intimate
-  {id: 67, name: "Butt booster", price: 300, description: "• Firmer\n• Larger bum\n• Rounder\n• Hair and nail quality", image: "./static/67.png", type: "options", category: "curves" },
-  {id: 68, name: "Skin Whitening", price: 350, description: "• Dark spots remover\n• Hyperpigmentation care\n• Anti-aging effect", image: "./static/68.png", type: "options", category: "skin" },
-  {id: 69, name: "Knuckles removal cream", price: 150, description: "• One week effective\n• permanent results and no side effects", image: "./static/69.png", type: "options", category: "skin" },
-  {id: 70, name: "Gluta White", price: 300, description: "• Supports skin health", image: "./static/70.png", type: "options", category: "skin" },
-  {id: 71, name: "Super Collagen + C", price: 200, description: "• Support hair, skin, nails, joints & bones", image: "./static/71.png", type: "options", category: "skin" },
-  {id: 72, name: "28 days detox Flat Tummy Capsules", price: 200, description: "• Supports Appetite control\n• Natural weight loss aid", image: "./static/72.png", type: "options", category: "weight" }
+  { id: 57, name: "Skin Beauty Glow tea", price: 250, description: "• 100% organic chinese herbal tea\n• help support skin'shealthy glow\n• help rejuctive and moisturize skin detox\n• durifies and remove fineliness", image: "./static/57.png", type: "simple", category: "skin" },
+  { id: 58, name: "Alma Powder", price:80, description: "• Curated selection of our best-selling products\n• Delivered to your doorstep\n• Flexible subscription plans to suit your needs", image: "./static/58.png", type: "simple", category: "herbs" },
+  { id: 60, name: "Hibiscus leaves", price: 100, description: "• High in vitamins and minerals\n• Boosts energy and vitality\n• Support skin health", image: "./static/60.png", type: "simple", category: "herbs" },
+  { id: 61, name: "Dark Knuckle Whitening", price: 150, description: "Get rid of knuckies\n• Whitening complex", image: "./static/61.png", type: "simple", category: "skin" },
+  { id: 62, name: "Hip Lift Up", price: 130, description: "• Hip massage cream\n• Your hip will be lifted and firm with natural extracts", image: "./static/62.png", type: "simple", category: "curves" },
+  { id: 63, name: "Fit tea", price: 250, description: "• Burn fat\n• Reduce bloating\n• Slimming tea", image: "./static/63.png", type: "simple", category: "weight" },
+  {id: 64, name: "Burn tummy tea with moringa", price: 200, description: "• Reduce bloating\n• Aids Digestion\n• Suppresses Appetite", image: "./static/64.png", type: "simple", category: "weight" },
+  {id: 66, name: "Chebe Hair GRC", price: 80, description: "• Promotes hair growth", image: "./static/65.png", type: "simple", category: "intimate" },
+  {id: 67, name: "Butt booster", price: 300, description: "• Firmer\n• Larger bum\n• Rounder\n• Hair and nail quality", image: "./static/67.png", type: "simple", category: "curves" },
+  {id: 68, name: "Skin Whitening", price: 350, description: "• Dark spots remover\n• Hyperpigmentation care\n• Anti-aging effect", image: "./static/68.png", type: "simple", category: "skin" },
+  {id: 69, name: "Knuckles removal cream", price: 150, description: "• One week effective\n• permanent results and no side effects", image: "./static/69.png", type: "simple", category: "skin" },
+  {id: 70, name: "Gluta White", price: 300, description: "• Supports skin health", image: "./static/70.png", type: "simple", category: "skin" },
+  {id: 71, name: "Super Collagen + C", price: 200, description: "• Support hair, skin, nails, joints & bones", image: "./static/71.png", type: "simple", category: "skin" },
+  {id: 72, name: "28 days detox Flat Tummy Capsules", price: 200, description: "• Supports Appetite control\n• Natural weight loss aid", image: "./static/72.png", type: "simple", category: "weight" }
 ];
 
 let cart = {};
@@ -257,7 +257,7 @@ let selectedOptions = {};
 let currentOrderId = "";
 let currentOrderTotal = 0;
 let currentCustomer = { name: "", phone: "", deliveryMethod: "", address: "" };
-let currentCategory = "all";  // active filter
+let currentCategory = "all";
 
 function getProductById(id) { return products.find(p=>p.id===id); }
 function getItemPrice(product, variantIdx, qty) {
@@ -437,7 +437,6 @@ function renderProductGrid() {
     html += `<div class="herb-card"><img src="${p.image}" class="product-img" loading="lazy"><b>${escapeHtml(p.name)}</b><div class="description-text">${p.description.replace(/\n/g,'<br>')}</div><div class="price">R${displayPrice}</div>${variantHtml}<button class="add-btn" data-pid="${p.id}">🛒 Add to Cart</button></div>`;
   });
   grid.innerHTML = html;
-  // attach events after render
   filtered.forEach(p => {
     let sel = document.getElementById(`sel_${p.id}`);
     if(sel){
@@ -451,13 +450,11 @@ function renderProductGrid() {
 
 function setCategory(cat) {
   currentCategory = cat;
-  // update active button style
   document.querySelectorAll('.cat-btn').forEach(btn => {
     if(btn.getAttribute('data-cat') === cat) btn.classList.add('active');
     else btn.classList.remove('active');
   });
   renderProductGrid();
-  // scroll to products smoothly after filter
   document.getElementById("herbsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
