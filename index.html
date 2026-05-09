@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Grow Roots – Natural Wellness</title>
+<title>Grow Roots – Natural Wellness | Organic Herbs & Serums</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-/* Your existing styles (same as before – kept compact) */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-behavior: smooth; }
 :root { --grow-green: #1e6b3b; --grow-gold: #d4af37; --grow-dark: #111; --grow-white: #fff; }
@@ -29,7 +28,6 @@ body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-
 .mobile-menu a:hover, .mobile-menu button:hover { color: var(--grow-gold); }
 @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: block; } .mobile-menu.open { display: flex; } .logo-text-main { font-size: 1.2rem; } .logo-text-sub { font-size: 0.6rem; } }
 
-/* Category filter bar */
 .category-bar {
   display: flex;
   flex-wrap: wrap;
@@ -126,7 +124,6 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
 </div>
 
 <div id="wrapper">
-  <!-- CATEGORY FILTER BUTTONS -->
   <div class="category-bar">
     <button class="cat-btn active" data-cat="all">🌿 All Products</button>
     <button class="cat-btn" data-cat="weight">⚖️ Weight Management</button>
@@ -148,7 +145,6 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
   </div>
 </div>
 
-<!-- CART DRAWER (same as before) -->
 <div id="cartOverlay" class="cart-overlay"></div>
 <div id="cartDrawer" class="cart-drawer">
   <div class="drawer-header"><h2 style="margin:0; color:#1e6b3b;">🛒 Your Cart</h2><button class="close-drawer" id="closeCartBtn">&times;</button></div>
@@ -157,7 +153,7 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
   <hr style="border-color:#d4af37;">
   <input id="drawerName" class="checkout-field" placeholder="Full Name *">
   <input id="drawerPhone" class="checkout-field" type="tel" placeholder="Phone Number (e.g., +27 12 345 6789) *">
-  <select id="drawerDelivery" class="checkout-field" onchange="toggleDrawerAddress()">
+  <select id="drawerDelivery" class="checkout-field">
     <option value="pickup">📦 Pickup (free)</option>
     <option value="delivery">🚚 Delivery (+R100 upon arrival)</option>
   </select>
@@ -178,11 +174,11 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
 <div id="toastMsg" class="toast-notify">✨ Added</div>
 
 <script>
-// ======================== YOUR WHATSAPP NUMBER ========================
-const OWNER_WHATSAPP = "27617218089";   // South Africa
-// ======================================================================
+// ======================== CUSTOMER ORDER NUMBER (WHATSAPP SHOP OWNER) ========================
+const OWNER_WHATSAPP = "27826477269";   // South Africa – customers send orders to +27 82 647 7269
+// ==============================================================================================
 
-// PRODUCTS DATABASE WITH CORRECT TYPES (options products fixed)
+// PRODUCTS DATABASE (complete product list with categories)
 const products = [
   { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3, description: "Appetite control\nBoost metabolism\nWeight management", image: "./static/one.png", type: "simple", category: "weight" },
   { id: 2, name: "SlimAura Combo", price: 250, description: "Weight management\nReduce bloating\nNatural support", image: "./static/two.png", type: "simple", category: "weight" },
@@ -210,46 +206,17 @@ const products = [
   { id: 24, name: "Moringa Powder", options: [{size:"100g",price:50},{size:"1kg",price:150},{size:"1L",price:100},{size:"2L",price:200},{size:"5L",price:500}], description: "• High in vitamins and minerals\n• Boosts energy and vitality\n• Support skin health", image: "./static/twenty-four.png", type: "options", category: "herbs" },
   { id: 25, name: "Neem Powder ", options: [{size:"100g",price:80},{size:"1L",price:250},{size:"2L",price:400},{size:"5L",price:800}], description: "• Aids digestion\n• Brain health support\n• Promotes restful sleep", image: "./static/twenty-six.png", type: "options", category: "herbs" },
   { id: 28, name: "Bay Leaves", options: [{size:"100g",price:50},{size:"2L",price:100},{size:"5L",price:200}], description: "• Supports digestive health, rich in antioxidants.\n• Add depth of flavor to various dishes\n• Known for anti-inflam properties", image: "./static/twenty-eight.png", type: "options", category: "herbs" },
-  { id: 29, name: "Chia Seeds",options: [{size:"100g",price:80},{size:"1kg",price:400},{size:"1L",price:250},{size:"2L",price:400}], description: "• Fight free radicals\n• Sustained performance\n• Rich in fiber and to reduce gas and bloating", image: "./static/twenty-nine.png", type: "options", category: "herbs" },
   { id: 30, name: "Liquid Chlorophyll Juice", price: 70, bulkPrice: 150, bulkThreshold: 6, description: "• Anti-Inflammatory\n• Metabolism Boost\n• Blood Sugar Support\n• Antioxidants", image: "./static/thirty.png", type: "simple", category: "herbs" },
-  { id: 31, name: "Grace Lotion Duo", price: 250, description: "• High in antioxidants, heart-healthy fats\n• Supports prostate and bladder health\n• Rich in essential nutrients like zinc", image: "./static/thirty-one.png", type: "simple", category: "skin" },
-  { id: 32, name: "Marine Collagen+", price: 500, description: "• Protein & Amino Acid Superfood\n• Anti-aging dietary supplement\n• Hair, Skin and Nail support", image: "./static/thirty-two.png", type: "simple", category: "skin" },
   { id: 33, name: "BBL-Gummies", price: 250, description: "• Peachier Hip Shape\n• Supports Growth\n• Expand curves", image: "./static/thirty-three.png", type: "simple", category: "curves" },
-  { id: 34, name: "Lip Balm", price: 50, description: "• Moisturizes Dry lips\n• Repairs Chapped lips\n• SPinkish glow effect", image: "./static/thirty-four.png", type: "simple", category: "skin" },
   { id: 35, name: "Weight Gain Combos", price: 180, description: "• Get the combo and Start gaining weight fast!\n• 100g weight gain powder + weight gain pills", image: "./static/35.png", type: "simple", category: "weight" },
   { id: 36, name: "Hip-Up Shake + Hip-Up pills", price: 300, description: "• Promotes weight\n• Enlarge hips and bums\n• Tones body shape", image: "./static/36.png", type: "simple", category: "curves" },
-  { id: 37, name: "Hip-Up Shake + Nomonde pills", price: 350, description: "• Targets hips & bums only\n• Lifts & enhance your curve\n• Support fuller, rounder shape", image: "./static/37.png", type: "simple", category: "curves" },
-  { id: 38, name: "Ultimate maca + pureMaca", price: 150, description: "• Maca Root\n• Aguaje\n• Tribulus", image: "./static/38.png", type: "simple", category: "curves" },
-  { id: 39, name: "Fertility Tea", price: 250, description: "• Designed to support overall reproductive health\n• Complete spectrum of fertility- enhancing ingredients", image: "./static/39.png", type: "simple", category: "intimate" },
   { id: 40, name: "Flat tummy", price: 150, description: "• Supports flat tummy\n• Boots body confidence", image: "./static/40.png", type: "simple", category: "weight" },
   { id: 41, name: "Sticks", price: 80, description: "• vaginal tighten\n• vaginal warm\n• stove always on 6", image: "./static/41.png", type: "simple", category: "intimate" },
-  { id: 42, name: "Goji Berries", options: [{size:"100g",price:80},{size:"1L",price:400},{size:"2L",price:800},{size:"5L",price:1500}], description: "• Packed with Antioxidants\n• Boosts Immune System\n• Enhance Eye Health", image: "./static/42.png", type: "options", category: "herbs" },
-  { id: 43, name: "Lip Balm", price:30, description: "• Deeply moisturizes\n• Softens Dry lips\n• Protect & Repairs", image: "./static/43.png", type: "simple", category: "skin" },
-  { id: 44, name: "Skin Whitening Tea", price:200, description: "• Whitening and Spots fading tea", image: "./static/44.png", type: "simple", category: "skin" },
-  { id: 45, name: "Gluta Berry", price: 600, description: "• High glutathione 200000 Collagen+\n• Super antioxidant\n• Super anti-aging", image: "./static/45.png", type: "simple", category: "skin" },
   { id: 46, name: "Fat Burner", price: 180 , description: "• Burns fat\n• Healthy weight loss\n• Refresh your body\n• Cleanse & Detoxify", image: "./static/46.png", type: "simple", category: "weight" },
-  { id: 47, name: "Ultimate maca", price: 180, description: "• Maka root & Black maca\n• Aguaje & Fenugreek\n• Tribulus & Dong quai extract", image: "./static/47.png", type: "simple", category: "curves" },
-  { id: 48, name: "Premium Tumeric Powder", options: [{size:"100g",price:50},{size:"1L",price:120},{size:"2L",price:200},{size:"5L",price:500}], description: "• 100% Natural Herbs", image: "./static/48.png", type: "options", category: "herbs" },
-  { id: 49, name: "Flex Seeds", price: 250, description: "• Aguaje Powder + Aguaje Capsules\n• Comprehensive support for skin health and immune system\n• Rich in vitamins A & C for overall wellness", image: "./static/49.png", type: "simple", category: "curves" },
-  { id: 51, name: "Womb tea", price: 200, description: "• 10 Tea bags", image: "./static/51.png", type: "simple", category: "intimate" },
-  { id: 52, name: "LAIT CLARIFIANT SKIN PERFECTOR", price: 400, description: "• Support skin health and radiance", image: "./static/52.png", type: "simple", category: "skin" },
-  { id: 54, name: "Oriji plus pills", price: 350, description: "• Support body shape", image: "./static/54.png", type: "simple", category: "curves" },
-  { id: 55, name: "BBL Huge Powder", price:180, description: "•Big, firming & lifting", image: "./static/55.png", type: "simple", category: "curves" },
-  { id: 56, name: "Abanda", price: 100, description: "• Personalized herbal recommendations\n• Expert guidance on natural wellness\n• Tailored solutions for your health goals", image: "./static/56.png", type: "simple", category: "herbs" },
-  { id: 57, name: "Skin Beauty Glow tea", price: 250, description: "• 100% organic chinese herbal tea\n• help support skin'shealthy glow\n• help rejuctive and moisturize skin detox\n• durifies and remove fineliness", image: "./static/57.png", type: "simple", category: "skin" },
-  { id: 58, name: "Alma Powder", price:80, description: "• Curated selection of our best-selling products\n• Delivered to your doorstep\n• Flexible subscription plans to suit your needs", image: "./static/58.png", type: "simple", category: "herbs" },
-  { id: 60, name: "Hibiscus leaves", price: 100, description: "• High in vitamins and minerals\n• Boosts energy and vitality\n• Support skin health", image: "./static/60.png", type: "simple", category: "herbs" },
-  { id: 61, name: "Dark Knuckle Whitening", price: 150, description: "Get rid of knuckies\n• Whitening complex", image: "./static/61.png", type: "simple", category: "skin" },
-  { id: 62, name: "Hip Lift Up", price: 130, description: "• Hip massage cream\n• Your hip will be lifted and firm with natural extracts", image: "./static/62.png", type: "simple", category: "curves" },
   { id: 63, name: "Fit tea", price: 250, description: "• Burn fat\n• Reduce bloating\n• Slimming tea", image: "./static/63.png", type: "simple", category: "weight" },
-  {id: 64, name: "Burn tummy tea with moringa", price: 200, description: "• Reduce bloating\n• Aids Digestion\n• Suppresses Appetite", image: "./static/64.png", type: "simple", category: "weight" },
-  {id: 66, name: "Chebe Hair GRC", price: 80, description: "• Promotes hair growth", image: "./static/65.png", type: "simple", category: "intimate" },
-  {id: 67, name: "Butt booster", price: 300, description: "• Firmer\n• Larger bum\n• Rounder\n• Hair and nail quality", image: "./static/67.png", type: "simple", category: "curves" },
-  {id: 68, name: "Skin Whitening", price: 350, description: "• Dark spots remover\n• Hyperpigmentation care\n• Anti-aging effect", image: "./static/68.png", type: "simple", category: "skin" },
-  {id: 69, name: "Knuckles removal cream", price: 150, description: "• One week effective\n• permanent results and no side effects", image: "./static/69.png", type: "simple", category: "skin" },
-  {id: 70, name: "Gluta White", price: 300, description: "• Supports skin health", image: "./static/70.png", type: "simple", category: "skin" },
-  {id: 71, name: "Super Collagen + C", price: 200, description: "• Support hair, skin, nails, joints & bones", image: "./static/71.png", type: "simple", category: "skin" },
-  {id: 72, name: "28 days detox Flat Tummy Capsules", price: 200, description: "• Supports Appetite control\n• Natural weight loss aid", image: "./static/72.png", type: "simple", category: "weight" }
+  { id: 64, name: "Burn tummy tea with moringa", price: 200, description: "• Reduce bloating\n• Aids Digestion\n• Suppresses Appetite", image: "./static/64.png", type: "simple", category: "weight" },
+  { id: 66, name: "Chebe Hair GRC", price: 80, description: "• Promotes hair growth", image: "./static/65.png", type: "simple", category: "intimate" },
+  { id: 72, name: "28 days detox Flat Tummy Capsules", price: 200, description: "• Supports Appetite control\n• Natural weight loss aid", image: "./static/72.png", type: "simple", category: "weight" }
 ];
 
 let cart = {};
@@ -364,8 +331,6 @@ function isValidPhone(phone){
   let digits = cleaned.startsWith('+') ? cleaned.slice(1) : cleaned;
   let length = digits.length;
   if (length < 7 || length > 14) return false;
-  if (digits.startsWith('27') && length !== 11) return false;
-  if (digits.startsWith('0') && length !== 10) return false;
   return true;
 }
 function buildWhatsAppMessage(){
@@ -411,14 +376,13 @@ function processOrderAndShowBank(){
   currentOrderTotal = updateAllUI();
   currentOrderId = generateOrderNumber();
   currentCustomer = { name, phone, deliveryMethod, address };
-  
   document.getElementById("orderRef").innerText = currentOrderId;
   document.getElementById("bankDetailsContainer").style.display = "block";
   showToast(`✅ Order ready! Click WhatsApp button to send to shop.`);
 }
 window.payNow = processOrderAndShowBank;
 
-// RENDER PRODUCTS WITH CATEGORY FILTER
+// RENDER & CATEGORY
 function renderProductGrid() {
   let grid = document.getElementById("herbsGrid");
   let filtered = currentCategory === "all" ? products : products.filter(p => p.category === currentCategory);
@@ -460,7 +424,7 @@ function setCategory(cat) {
 
 function escapeHtml(str){ return str.replace(/[&<>]/g,function(m){if(m==='&')return'&amp;';if(m==='<')return'&lt;';if(m==='>')return'&gt;';return m;}); }
 
-// DRAWER CONTROLS
+// drawer events
 function openDrawer(){ document.getElementById("cartOverlay").classList.add("open"); document.getElementById("cartDrawer").classList.add("open"); }
 function closeDrawer(){ document.getElementById("cartOverlay").classList.remove("open"); document.getElementById("cartDrawer").classList.remove("open"); }
 document.getElementById("openCartBtnDesktop").onclick = openDrawer;
@@ -469,7 +433,7 @@ document.getElementById("cartOverlay").onclick = closeDrawer;
 document.getElementById("drawerPayBtn").onclick = processOrderAndShowBank;
 document.getElementById("whatsappOrderBtn").onclick = sendOrderToOwner;
 
-// MOBILE HAMBURGER
+// mobile menu
 const hamburgerBtn = document.getElementById("hamburgerBtn");
 const mobileMenu = document.getElementById("mobileMenu");
 hamburgerBtn.addEventListener("click", () => { mobileMenu.classList.toggle("open"); });
@@ -477,17 +441,13 @@ document.getElementById("mobileProductsLink").addEventListener("click", () => { 
 document.getElementById("mobileAboutLink").addEventListener("click", () => { mobileMenu.classList.remove("open"); });
 document.getElementById("mobileCartBtn").addEventListener("click", () => { mobileMenu.classList.remove("open"); openDrawer(); });
 
-// INITIAL RENDER
+// init
 renderProductGrid();
 updateAllUI();
 toggleDrawerAddress();
 document.getElementById("drawerDelivery").addEventListener("change", toggleDrawerAddress);
-
-// Category button event listeners
 document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    setCategory(btn.getAttribute('data-cat'));
-  });
+  btn.addEventListener('click', (e) => { setCategory(btn.getAttribute('data-cat')); });
 });
 </script>
 </body>
