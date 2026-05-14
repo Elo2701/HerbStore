@@ -9,9 +9,57 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-behavior: smooth; }
+body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-behavior: smooth; padding-bottom: 70px; }
 :root { --grow-green: #1e6b3b; --grow-gold: #d4af37; --grow-dark: #111; --grow-white: #fff; }
-.top-nav { position: sticky; top: 0; z-index: 1000; background: var(--grow-white); border-bottom: 2px solid var(--grow-gold); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+.lightbox .close-lightbox {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  font-size: 40px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.lightbox .close-lightbox:hover { color: var(--grow-gold); }
+
+/* Top nav (desktop only) */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--grow-white);
+  border-bottom: 2px solid var(--grow-gold);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 .logo-area { display: flex; align-items: center; gap: 12px; }
 .logo-img { height: 55px; width: auto; object-fit: contain; }
 .logo-text-wrapper { display: flex; flex-direction: column; line-height: 1.2; }
@@ -22,12 +70,58 @@ body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-
 .nav-links a:hover { color: var(--grow-gold); border-bottom-color: var(--grow-gold); }
 .cart-icon-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--grow-green); display: flex; align-items: center; gap: 8px; font-weight: 600; }
 .cart-count-badge { background: var(--grow-gold); color: var(--grow-dark); font-size: 0.7rem; font-weight: bold; border-radius: 40px; padding: 2px 8px; min-width: 24px; text-align: center; }
-.hamburger { display: none; font-size: 1.8rem; background: none; border: none; color: var(--grow-green); cursor: pointer; }
-.mobile-menu { display: none; position: absolute; top: 85px; left: 0; width: 100%; background: white; border-top: 2px solid var(--grow-gold); border-bottom: 2px solid var(--grow-gold); box-shadow: 0 8px 16px rgba(0,0,0,0.1); z-index: 999; flex-direction: column; padding: 16px 24px; gap: 16px; }
-.mobile-menu a, .mobile-menu button { font-size: 1.2rem; text-decoration: none; color: var(--grow-dark); background: none; border: none; text-align: left; padding: 8px 0; font-weight: 500; cursor: pointer; }
-.mobile-menu a:hover, .mobile-menu button:hover { color: var(--grow-gold); }
-@media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: block; } .mobile-menu.open { display: flex; } .logo-text-main { font-size: 1.2rem; } .logo-text-sub { font-size: 0.6rem; } }
 
+/* Mobile bottom navigation bar */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top: 2px solid var(--grow-gold);
+  padding: 10px 20px;
+  justify-content: space-around;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+.bottom-nav button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--grow-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-family: "Karma", serif;
+}
+.bottom-nav button i { font-size: 1.4rem; color: var(--grow-green); }
+.bottom-nav button span { font-size: 0.7rem; }
+.bottom-nav button:hover { color: var(--grow-gold); }
+.bottom-nav .cart-icon-bottom { position: relative; }
+.bottom-nav .cart-count-badge-bottom {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: var(--grow-gold);
+  color: var(--grow-dark);
+  font-size: 0.6rem;
+  font-weight: bold;
+  border-radius: 40px;
+  padding: 2px 6px;
+  min-width: 18px;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .top-nav { display: none; }
+  .bottom-nav { display: flex; }
+  body { padding-bottom: 70px; }
+}
+
+/* Category bar */
 .category-bar {
   display: flex;
   flex-wrap: wrap;
@@ -64,7 +158,8 @@ body { font-family: "Karma", serif; background: #ffffff; color: #111111; scroll-
 @media (max-width: 540px) { .products-grid { gap: 16px; } }
 .herb-card { background: var(--grow-white); border-radius: 28px; transition: all 0.2s ease; box-shadow: 0 6px 14px rgba(0,0,0,0.04); display: flex; flex-direction: column; height: 100%; padding: 18px 16px 20px; border: 1px solid #ece8e0; }
 .herb-card:hover { transform: translateY(-4px); box-shadow: 0 20px 28px rgba(0,0,0,0.08); border-color: var(--grow-gold); }
-.product-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; background: #fcf9f2; border-radius: 24px; padding: 12px; margin-bottom: 12px; }
+.product-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; background: #fcf9f2; border-radius: 24px; padding: 12px; margin-bottom: 12px; cursor: pointer; transition: transform 0.1s; }
+.product-img:hover { transform: scale(1.02); }
 .herb-card b { font-size: 1rem; line-height: 1.35; color: var(--grow-green); }
 .description-text { font-size: 12px; color: #2c2c2c; white-space: pre-line; margin: 8px 0; flex: 1; }
 .price { font-size: 1.3rem; font-weight: 800; color: var(--grow-gold); margin: 10px 0 6px; }
@@ -74,33 +169,107 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
 .added-feedback { background: #d4af37 !important; color: #111 !important; }
 .about-section { background: #fef9ef; border-radius: 48px; padding: 40px 32px; margin: 50px 0 20px; text-align: center; border: 1px solid var(--grow-gold); scroll-margin-top: 100px; }
 .about-section h2 { color: var(--grow-green); margin-bottom: 20px; }
-.about-section p { max-width: 700px; margin: 0 auto 20px; line-height: 1.6; }
 .contact-details { background: white; border-radius: 32px; padding: 20px; margin-top: 20px; display: inline-block; text-align: left; border: 1px solid var(--grow-gold); }
 .contact-details p { margin: 8px 0; font-size: 0.95rem; }
 .contact-details i { color: var(--grow-green); width: 24px; margin-right: 8px; }
-.cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1100; visibility: hidden; opacity: 0; transition: 0.25s ease; }
+
+/* Cart drawer (items only + checkout button) */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1100;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.25s ease;
+}
 .cart-overlay.open { visibility: visible; opacity: 1; }
-.cart-drawer { position: fixed; top: 0; right: -100%; width: 100%; max-width: 500px; height: 100%; background: white; box-shadow: -6px 0 24px rgba(0,0,0,0.12); z-index: 1101; transition: right 0.3s; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 20px; border-left: 4px solid var(--grow-gold); }
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  background: white;
+  box-shadow: -6px 0 24px rgba(0,0,0,0.12);
+  z-index: 1101;
+  transition: right 0.3s;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 24px 20px;
+  border-left: 4px solid var(--grow-gold);
+}
 .cart-drawer.open { right: 0; }
+@media (max-width: 768px) {
+  .cart-drawer {
+    top: auto;
+    bottom: -100%;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 80%;
+    border-radius: 20px 20px 0 0;
+    border-left: none;
+    border-top: 4px solid var(--grow-gold);
+    transition: bottom 0.3s;
+  }
+  .cart-drawer.open {
+    bottom: 0;
+    right: 0;
+  }
+}
 .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--grow-gold); padding-bottom: 16px; margin-bottom: 20px; }
 .close-drawer { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--grow-green); }
-.cart-items-list { flex: 1; max-height: 45vh; overflow-y: auto; margin-bottom: 20px; }
+.cart-items-list { flex: 1; margin-bottom: 20px; }
 .cart-item { display: flex; justify-content: space-between; align-items: center; margin: 14px 0; padding: 10px 0; border-bottom: 1px solid #eee6db; gap: 12px; }
 .cart-item-info { flex: 2; font-size: 0.85rem; }
 .cart-item-actions button { background: #f0ede8; border: none; border-radius: 30px; padding: 5px 12px; margin: 0 3px; cursor: pointer; font-weight: bold; }
 .drawer-total { font-size: 1.8rem; font-weight: 800; color: var(--grow-green); margin: 5px 0; }
+.checkout-btn { background: var(--grow-gold); color: #1e3a2f; border: none; border-radius: 60px; padding: 14px; width: 100%; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 12px; transition: 0.2s; }
+.checkout-btn:hover { background: #c5a42b; transform: scale(0.98); }
+
+/* Checkout modal (full page) */
+.checkout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 1200;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 24px;
+}
+.checkout-modal.open { display: flex; }
+.checkout-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--grow-gold); padding-bottom: 16px; margin-bottom: 20px; }
+.close-checkout { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--grow-green); }
 .checkout-field { width: 100%; margin: 10px 0; padding: 12px 16px; border-radius: 60px; border: 1px solid #ccc7bc; background: white; font-size: 0.9rem; }
-.pay-btn { background: var(--grow-green); color: white; border: none; border-radius: 60px; padding: 14px; width: 100%; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 12px; }
-.pay-btn:hover { background: #0f5530; }
+.checkout-group { margin-bottom: 20px; }
+.delivery-fields { display: none; margin-top: 10px; }
+.bank-details { background: #fef9ef; padding: 16px; border-radius: 24px; margin-top: 16px; border-left: 4px solid var(--grow-gold); font-size: 0.85rem; display: none; }
 .whatsapp-btn { background: #25D366; color: white; border: none; border-radius: 60px; padding: 14px; width: 100%; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
 .whatsapp-btn:hover { background: #128C7E; transform: scale(0.98); }
-.bank-details { background: #fef9ef; padding: 16px; border-radius: 24px; margin-top: 16px; border-left: 4px solid var(--grow-gold); font-size: 0.85rem; display: none; }
-.toast-notify { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e3a2f; color: var(--grow-gold); padding: 10px 24px; border-radius: 40px; z-index: 1200; font-size: 0.85rem; opacity: 0; transition: 0.2s; pointer-events: none; white-space: nowrap; font-weight: 600; }
+.toast-notify { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1e3a2f; color: var(--grow-gold); padding: 10px 24px; border-radius: 40px; z-index: 1300; font-size: 0.85rem; opacity: 0; transition: 0.2s; pointer-events: none; white-space: nowrap; font-weight: 600; }
 .toast-notify.show { opacity: 1; transform: translateX(-50%) translateY(-8px); }
 </style>
 </head>
 <body>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <button class="close-lightbox" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Enlarged product">
+</div>
+
+<!-- DESKTOP TOP NAV -->
 <nav class="top-nav">
   <div class="logo-area">
     <img src="./static/logo.png" alt="Grow Roots" class="logo-img" onerror="this.src='https://via.placeholder.com/60?text=GR'">
@@ -114,13 +283,13 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
     <a href="#about">📖 About</a>
     <button class="cart-icon-btn" id="openCartBtnDesktop"><i class="fas fa-shopping-bag"></i> <span id="cartCountBadgeDesktop" class="cart-count-badge">0</span></button>
   </div>
-  <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
 </nav>
 
-<div id="mobileMenu" class="mobile-menu">
-  <a href="#products-grid" id="mobileProductsLink">🍃 Products</a>
-  <a href="#about" id="mobileAboutLink">📖 About</a>
-  <button id="mobileCartBtn" class="cart-mobile"><i class="fas fa-shopping-bag"></i> Cart <span id="cartCountBadgeMobile" class="cart-count-badge" style="margin-left:8px;">0</span></button>
+<!-- MOBILE BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+  <button id="bottomProductsBtn"><i class="fas fa-seedling"></i><span>Products</span></button>
+  <button id="bottomAboutBtn"><i class="fas fa-leaf"></i><span>About</span></button>
+  <button id="bottomCartBtn" class="cart-icon-bottom"><i class="fas fa-shopping-bag"></i><span>Cart</span><span id="cartCountBadgeMobile" class="cart-count-badge-bottom">0</span></button>
 </div>
 
 <div id="wrapper">
@@ -145,40 +314,56 @@ select { font-size: 12px; padding: 8px; border-radius: 60px; border: 1px solid #
   </div>
 </div>
 
+<!-- CART DRAWER (only items + checkout button) -->
 <div id="cartOverlay" class="cart-overlay"></div>
 <div id="cartDrawer" class="cart-drawer">
   <div class="drawer-header"><h2 style="margin:0; color:#1e6b3b;">🛒 Your Cart</h2><button class="close-drawer" id="closeCartBtn">&times;</button></div>
   <div id="cartItemsDrawer" class="cart-items-list">✨ Cart is empty</div>
   <div id="drawerTotal" class="drawer-total"></div>
-  <hr style="border-color:#d4af37;">
-  <input id="drawerName" class="checkout-field" placeholder="Full Name *">
-  <input id="drawerPhone" class="checkout-field" type="tel" placeholder="Phone Number (e.g., +27 12 345 6789) *">
-  <select id="drawerDelivery" class="checkout-field">
-    <option value="pickup">📦 Pickup (free)</option>
-    <option value="delivery">🚚 Delivery (+R100 upon arrival)</option>
-  </select>
-  <textarea id="drawerAddress" class="checkout-field" placeholder="Delivery address" style="display:none;"></textarea>
-  <button class="pay-btn" id="drawerPayBtn">💳 Confirm Order & Show Bank Details</button>
-  <div id="bankDetailsContainer" class="bank-details">
-    <strong>🏦 Bank Transfer Details</strong>
-    <p>Account Holder: <strong>Grow Roots</strong></p>
-    <p>Bank: <strong>FNB BUSINESS ACCOUNT</strong></p>
-    <p>Account Number: <strong>63173680068</strong></p>
-    <p>Branch Code: <strong>250655</strong></p>
-    <p>Reference: <strong id="orderRef">GR-XXXX</strong></p>
-    <p style="margin-top:12px;">⚠️ Use the order number as reference. After payment, send proof to this WhatsApp.</p>
-    <button id="whatsappOrderBtn" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> 📱 Send Order to Shop (WhatsApp)</button>
+  <button class="checkout-btn" id="proceedCheckoutBtn">💳 Proceed to Checkout</button>
+</div>
+
+<!-- CHECKOUT MODAL with PAXI code -->
+<div id="checkoutModal" class="checkout-modal">
+  <div class="checkout-header">
+    <h2 style="margin:0; color:#1e6b3b;">📋 Complete Your Order</h2>
+    <button class="close-checkout" id="closeCheckoutBtn">&times;</button>
+  </div>
+  <div id="checkoutForm">
+    <input type="text" id="checkoutName" class="checkout-field" placeholder="Full Name *">
+    <input type="tel" id="checkoutPhone" class="checkout-field" placeholder="Phone Number (e.g., +27 12 345 6789) *">
+    <select id="checkoutDelivery" class="checkout-field">
+      <option value="pickup">📦 Pickup (free)</option>
+      <option value="delivery">🚚 Delivery (+R100 upon arrival)</option>
+    </select>
+    <div id="deliveryFields" class="delivery-fields">
+      <input type="text" id="checkoutStreet" class="checkout-field" placeholder="Street address *">
+      <input type="text" id="checkoutCity" class="checkout-field" placeholder="City / Town *">
+      <input type="text" id="checkoutPostal" class="checkout-field" placeholder="Postal code (town) *">
+      <input type="text" id="checkoutPaxiCode" class="checkout-field" placeholder="PAXI Shop Code (for delivery) *">
+    </div>
+    <button class="pay-btn" id="placeOrderBtn">✅ Place Order & Show Bank Details</button>
+    <div id="bankDetailsModal" class="bank-details">
+      <strong>🏦 Bank Transfer Details</strong>
+      <p>Account Holder: <strong>Grow Roots</strong></p>
+      <p>Bank: <strong>FNB BUSINESS ACCOUNT</strong></p>
+      <p>Account Number: <strong>63173680068</strong></p>
+      <p>Branch Code: <strong>250655</strong></p>
+      <p>Reference: <strong id="orderRefModal">GR-XXXX</strong></p>
+      <p style="margin-top:12px;">⚠️ Use the order number as reference. After payment, send proof to WhatsApp.</p>
+      <button id="whatsappOrderBtnModal" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> 📱 Send Order to Shop (WhatsApp)</button>
+    </div>
   </div>
 </div>
 
 <div id="toastMsg" class="toast-notify">✨ Added</div>
 
 <script>
-// ======================== CUSTOMER ORDER NUMBER (WHATSAPP SHOP OWNER) ========================
-const OWNER_WHATSAPP = "27826477269";   // South Africa – customers send orders to +27 82 647 7269
-// ==============================================================================================
+// ======================== WHATSAPP OWNER NUMBER ========================
+const OWNER_WHATSAPP = "27826477269";
+// ========================================================================
 
-// PRODUCTS DATABASE (complete product list with categories)
+// PRODUCTS DATABASE (same as before, full list)
 const products = [
   { id: 1, name: "SlimAura Capsules", price: 100, bulkPrice: 80, bulkThreshold: 3, description: "Appetite control\nBoost metabolism\nWeight management", image: "./static/one.png", type: "simple", category: "weight" },
   { id: 2, name: "SlimAura Combo", price: 250, description: "Weight management\nReduce bloating\nNatural support", image: "./static/two.png", type: "simple", category: "weight" },
@@ -223,9 +408,10 @@ let cart = {};
 let selectedOptions = {};
 let currentOrderId = "";
 let currentOrderTotal = 0;
-let currentCustomer = { name: "", phone: "", deliveryMethod: "", address: "" };
+let currentCustomer = { name: "", phone: "", deliveryMethod: "", street: "", city: "", postal: "", paxiCode: "" };
 let currentCategory = "all";
 
+// Helper functions
 function getProductById(id) { return products.find(p=>p.id===id); }
 function getItemPrice(product, variantIdx, qty) {
   if(product.type==="options" && product.options) return product.options[variantIdx]?.price||0;
@@ -320,18 +506,12 @@ function removeItem(productId, variantIdx){
     showToast(`🗑️ ${name} removed`);
   }
 }
-function toggleDrawerAddress(){
-  let delivery = document.getElementById("drawerDelivery").value;
-  document.getElementById("drawerAddress").style.display = delivery === "delivery" ? "block" : "none";
-}
 function generateOrderNumber(){ return "GR-"+Date.now()+"-"+Math.floor(1000+Math.random()*9000); }
 function isValidPhone(phone){
   let cleaned = phone.replace(/[\s\(\)\-]/g, '');
   if (!/^\+?\d+$/.test(cleaned)) return false;
   let digits = cleaned.startsWith('+') ? cleaned.slice(1) : cleaned;
-  let length = digits.length;
-  if (length < 7 || length > 14) return false;
-  return true;
+  return digits.length >= 7 && digits.length <= 14;
 }
 function buildWhatsAppMessage(){
   let itemsText = "";
@@ -348,7 +528,12 @@ function buildWhatsAppMessage(){
   message += `*Customer:* ${currentCustomer.name}\n`;
   message += `*Phone:* ${currentCustomer.phone}\n`;
   message += `*Delivery:* ${currentCustomer.deliveryMethod === "pickup" ? "Pickup" : "Delivery"}\n`;
-  if(currentCustomer.deliveryMethod === "delivery") message += `*Address:* ${currentCustomer.address}\n`;
+  if(currentCustomer.deliveryMethod === "delivery"){
+    message += `*Address:* ${currentCustomer.street}, ${currentCustomer.city}, ${currentCustomer.postal}\n`;
+    if(currentCustomer.paxiCode && currentCustomer.paxiCode.trim() !== ""){
+      message += `*PAXI Code:* ${currentCustomer.paxiCode}\n`;
+    }
+  }
   message += `\n*ITEMS:*\n${itemsText}`;
   message += `\n*TOTAL: R${currentOrderTotal.toFixed(2)}*\n\n`;
   message += `*Bank Details:*\nFNB Business Account\nAccount: 63173680068\nBranch: 250655\nRef: ${currentOrderId}\n\n`;
@@ -356,33 +541,84 @@ function buildWhatsAppMessage(){
   return message;
 }
 function sendOrderToOwner(){
-  if(!currentOrderId){ showToast("⚠️ Please confirm your order first"); return; }
+  if(!currentOrderId){ showToast("⚠️ Please complete the order first"); return; }
   let encodedMsg = encodeURIComponent(buildWhatsAppMessage());
   let whatsappUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodedMsg}`;
   window.open(whatsappUrl, '_blank');
   showToast("📱 Opening WhatsApp to send order to shop owner");
 }
-function processOrderAndShowBank(){
-  let name = document.getElementById("drawerName").value.trim();
-  let phone = document.getElementById("drawerPhone").value.trim();
-  let deliveryMethod = document.getElementById("drawerDelivery").value;
-  let address = document.getElementById("drawerAddress").value.trim();
+
+// Checkout modal logic
+function openCheckoutModal() {
+  closeDrawer(); // close cart drawer first
+  document.getElementById("checkoutModal").classList.add("open");
+}
+function closeCheckoutModal() {
+  document.getElementById("checkoutModal").classList.remove("open");
+  document.getElementById("bankDetailsModal").style.display = "none";
+}
+function toggleDeliveryFields() {
+  const deliveryMethod = document.getElementById("checkoutDelivery").value;
+  const fieldsDiv = document.getElementById("deliveryFields");
+  fieldsDiv.style.display = deliveryMethod === "delivery" ? "block" : "none";
+}
+function placeOrder() {
+  const name = document.getElementById("checkoutName").value.trim();
+  const phone = document.getElementById("checkoutPhone").value.trim();
+  const deliveryMethod = document.getElementById("checkoutDelivery").value;
+  let street = "", city = "", postal = "", paxiCode = "";
+  if(deliveryMethod === "delivery"){
+    street = document.getElementById("checkoutStreet").value.trim();
+    city = document.getElementById("checkoutCity").value.trim();
+    postal = document.getElementById("checkoutPostal").value.trim();
+    paxiCode = document.getElementById("checkoutPaxiCode").value.trim();
+    if(!street || !city || !postal){
+      showToast("❌ Please enter full delivery address (street, city, postal code)");
+      return;
+    }
+  }
   if(!name){ showToast("❌ Please enter your full name"); return; }
-  if(!phone){ showToast("❌ Please enter your phone number"); return; }
-  if(!isValidPhone(phone)){ showToast("⚠️ Enter a valid phone number (e.g., +27123456789 or 0712345678)"); return; }
-  if(deliveryMethod === "delivery" && !address){ showToast("🚚 Please enter delivery address"); return; }
+  if(!phone || !isValidPhone(phone)){ showToast("⚠️ Enter a valid phone number (e.g., +27123456789 or 0712345678)"); return; }
   if(Object.keys(cart).length===0){ showToast("🛒 Cart is empty"); return; }
   
   currentOrderTotal = updateAllUI();
   currentOrderId = generateOrderNumber();
-  currentCustomer = { name, phone, deliveryMethod, address };
-  document.getElementById("orderRef").innerText = currentOrderId;
-  document.getElementById("bankDetailsContainer").style.display = "block";
+  currentCustomer = {
+    name, phone, deliveryMethod,
+    street, city, postal, paxiCode
+  };
+  document.getElementById("orderRefModal").innerText = currentOrderId;
+  document.getElementById("bankDetailsModal").style.display = "block";
   showToast(`✅ Order ready! Click WhatsApp button to send to shop.`);
 }
-window.payNow = processOrderAndShowBank;
 
-// RENDER & CATEGORY
+// LIGHTBOX
+function openLightbox(imgSrc) {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  lightboxImg.src = imgSrc;
+  lightbox.style.display = "flex";
+}
+function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
+function attachLightboxToImages() {
+  document.querySelectorAll(".product-img").forEach(img => {
+    img.removeEventListener("click", lightboxHandler);
+    img.addEventListener("click", lightboxHandler);
+  });
+}
+function lightboxHandler(e) { e.stopPropagation(); openLightbox(this.src); }
+
+// DRAWER CONTROL
+function openDrawer() {
+  document.getElementById("cartOverlay").classList.add("open");
+  document.getElementById("cartDrawer").classList.add("open");
+}
+function closeDrawer() {
+  document.getElementById("cartOverlay").classList.remove("open");
+  document.getElementById("cartDrawer").classList.remove("open");
+}
+
+// RENDER PRODUCTS
 function renderProductGrid() {
   let grid = document.getElementById("herbsGrid");
   let filtered = currentCategory === "all" ? products : products.filter(p => p.category === currentCategory);
@@ -398,7 +634,7 @@ function renderProductGrid() {
       variantHtml = `<select id="sel_${p.id}">${variantOptions.map((opt,i)=>`<option value="${i}">${opt.size} - R${opt.price}</option>`).join("")}</select>`;
       if(selectedOptions[p.id]===undefined) selectedOptions[p.id]=0;
     } else { variantHtml = `<div style="height:40px;"></div>`; }
-    html += `<div class="herb-card"><img src="${p.image}" class="product-img" loading="lazy"><b>${escapeHtml(p.name)}</b><div class="description-text">${p.description.replace(/\n/g,'<br>')}</div><div class="price">R${displayPrice}</div>${variantHtml}<button class="add-btn" data-pid="${p.id}">🛒 Add to Cart</button></div>`;
+    html += `<div class="herb-card"><img src="${p.image}" class="product-img" loading="lazy" alt="${escapeHtml(p.name)}"><b>${escapeHtml(p.name)}</b><div class="description-text">${p.description.replace(/\n/g,'<br>')}</div><div class="price">R${displayPrice}</div>${variantHtml}<button class="add-btn" data-pid="${p.id}">🛒 Add to Cart</button></div>`;
   });
   grid.innerHTML = html;
   filtered.forEach(p => {
@@ -410,8 +646,8 @@ function renderProductGrid() {
     let btn = document.querySelector(`.add-btn[data-pid="${p.id}"]`);
     if(btn) btn.onclick = (e) => addToCartDirect(p.id, btn, false);
   });
+  attachLightboxToImages();
 }
-
 function setCategory(cat) {
   currentCategory = cat;
   document.querySelectorAll('.cat-btn').forEach(btn => {
@@ -421,34 +657,31 @@ function setCategory(cat) {
   renderProductGrid();
   document.getElementById("herbsGrid").scrollIntoView({ behavior: "smooth", block: "start" });
 }
-
 function escapeHtml(str){ return str.replace(/[&<>]/g,function(m){if(m==='&')return'&amp;';if(m==='<')return'&lt;';if(m==='>')return'&gt;';return m;}); }
 
-// drawer events
-function openDrawer(){ document.getElementById("cartOverlay").classList.add("open"); document.getElementById("cartDrawer").classList.add("open"); }
-function closeDrawer(){ document.getElementById("cartOverlay").classList.remove("open"); document.getElementById("cartDrawer").classList.remove("open"); }
-document.getElementById("openCartBtnDesktop").onclick = openDrawer;
-document.getElementById("closeCartBtn").onclick = closeDrawer;
-document.getElementById("cartOverlay").onclick = closeDrawer;
-document.getElementById("drawerPayBtn").onclick = processOrderAndShowBank;
-document.getElementById("whatsappOrderBtn").onclick = sendOrderToOwner;
+// SCROLL TO SECTION
+function scrollToProducts() { document.getElementById("herbsGrid").scrollIntoView({ behavior: "smooth", block: "start" }); }
+function scrollToAbout() { document.getElementById("about").scrollIntoView({ behavior: "smooth", block: "start" }); }
 
-// mobile menu
-const hamburgerBtn = document.getElementById("hamburgerBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-hamburgerBtn.addEventListener("click", () => { mobileMenu.classList.toggle("open"); });
-document.getElementById("mobileProductsLink").addEventListener("click", () => { mobileMenu.classList.remove("open"); });
-document.getElementById("mobileAboutLink").addEventListener("click", () => { mobileMenu.classList.remove("open"); });
-document.getElementById("mobileCartBtn").addEventListener("click", () => { mobileMenu.classList.remove("open"); openDrawer(); });
+// EVENT LISTENERS
+document.getElementById("openCartBtnDesktop")?.addEventListener("click", openDrawer);
+document.getElementById("closeCartBtn").addEventListener("click", closeDrawer);
+document.getElementById("cartOverlay").addEventListener("click", closeDrawer);
+document.getElementById("proceedCheckoutBtn").addEventListener("click", openCheckoutModal);
+document.getElementById("closeCheckoutBtn").addEventListener("click", closeCheckoutModal);
+document.getElementById("checkoutDelivery").addEventListener("change", toggleDeliveryFields);
+document.getElementById("placeOrderBtn").addEventListener("click", placeOrder);
+document.getElementById("whatsappOrderBtnModal").addEventListener("click", sendOrderToOwner);
 
-// init
+// Mobile bottom nav
+document.getElementById("bottomProductsBtn").addEventListener("click", scrollToProducts);
+document.getElementById("bottomAboutBtn").addEventListener("click", scrollToAbout);
+document.getElementById("bottomCartBtn").addEventListener("click", openDrawer);
+
+// INIT
 renderProductGrid();
 updateAllUI();
-toggleDrawerAddress();
-document.getElementById("drawerDelivery").addEventListener("change", toggleDrawerAddress);
-document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => { setCategory(btn.getAttribute('data-cat')); });
-});
+toggleDeliveryFields();
 </script>
 </body>
 </html>
